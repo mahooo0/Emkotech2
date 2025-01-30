@@ -223,15 +223,90 @@ export default function Products() {
             </Head>
             <div className="mt-[94px]">
                 {/* <Header activeindex={1} /> */}
-                <BreadcrumbNavigation
+                {selectedCategory === 0 ? (
+                    <BreadcrumbNavigation
+                        items={[
+                            {
+                                text: `${translationsData?.data?.Məhsullar}`,
+                                path: `/${language}/${
+                                    ROUTES.products[language]
+                                }?category=${0}&search=no`,
+                            },
+                        ]}
+                    />
+                ) : selectedSubCategory === 0 ? (
+                    <BreadcrumbNavigation
+                        items={[
+                            {
+                                text: `${translationsData?.data?.Məhsullar}`,
+                                path: `/${language}/${
+                                    ROUTES.products[language]
+                                }?category=${0}&sort=no&search=no`,
+                            },
+                            {
+                                text: `${
+                                    productCategoriesData?.data.find(
+                                        (item) => item.id === selectedCategory
+                                    )?.title
+                                }`,
+                                path: `/${language}/${
+                                    ROUTES.products[language]
+                                }?category=${selectedCategory}&sub_category=${0}`,
+                            },
+                        ]}
+                    />
+                ) : (
+                    <BreadcrumbNavigation
+                        items={[
+                            {
+                                text: `${translationsData?.data?.Məhsullar}`,
+                                path: `/${language}/${
+                                    ROUTES.products[language]
+                                }?category=${0}&sub_category=${0}&search=no`,
+                            },
+                            {
+                                text: `${
+                                    productCategoriesData?.data.find(
+                                        (item) => item.id === selectedCategory
+                                    )?.title
+                                }`,
+                                path: `/${language}/${
+                                    ROUTES.products[language]
+                                }?category=${selectedCategory}&sub_category=${0}`,
+                            },
+                            {
+                                text: `${
+                                    productSubCategoriesData?.data.find(
+                                        (item) =>
+                                            item.id === selectedSubCategory
+                                    )?.name
+                                }`,
+                                path: `/${language}/${ROUTES.products[language]}?category=${selectedCategory}&sub_category=${selectedSubCategory}`,
+                            },
+                        ]}
+                    />
+                )}
+
+                {/* <BreadcrumbNavigation
                     items={[
                         {
                             text: `${translationsData?.data?.Məhsullar}`,
                             path: `/${language}/${ROUTES.products[language]}`,
                         },
+                        // {
+                        //     text: productData?.product.category_name,
+                        //     path: `/${language}/${ROUTES.products[language]}?category=${productData?.product.category_id}`,
+                        // },
+                        // {
+                        //     text: productData?.product?.subcategory_name,
+                        //     path: `/${language}/${ROUTES.products[language]}?category=${productData?.product.category_id}&sub_category=${productData?.product?.subcategory_id}`,
+                        // },
+                        // {
+                        //     text: productData?.product?.title,
+                        //     path: router.asPath,
+                        // },
                     ]}
-                />
-
+                /> */}
                 <main>
                     <section className="flex flex-col text-black">
                         <h1
@@ -358,13 +433,13 @@ export default function Products() {
                                         data-layername="kategoriyalar"
                                         value={'no'}
                                     >
-                                        {translationsData.data?.Sort}
+                                        {translationsData?.data?.Sort}
                                     </option>
                                     <option key={1} value={'price_asc'}>
-                                        {translationsData.data?.ucuzdan_bahaya}
+                                        {translationsData?.data?.ucuzdan_bahaya}
                                     </option>
                                     <option key={2} value={'price_desc'}>
-                                        {translationsData.data?.bahadan_ucuza}
+                                        {translationsData?.data?.bahadan_ucuza}
                                     </option>
                                     <option key={3} value={'title_asc'}>
                                         a-z{' '}
@@ -373,10 +448,10 @@ export default function Products() {
                                         z-a{' '}
                                     </option>
                                     <option key={5} value={'popular'}>
-                                        popular
+                                        {translationsData?.data?.popular}
                                     </option>
                                     <option key={5} value={'discount'}>
-                                        {translationsData.data?.discount}
+                                        {translationsData?.data?.discount}
                                     </option>
                                 </select>
                             </div>

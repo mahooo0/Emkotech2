@@ -444,33 +444,43 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     console.log(lang);
 
     try {
-        const [
-            topBannerData,
-            statisticsData,
-            productsData,
-            customersData,
-            bottomBannerData,
-            partnersData,
-            productCategoriesData,
-            translationsData,
-            Meta,
-            Logo,
-            DiscountedProducts,
-            PopulyarProduct,
-        ] = await Promise.all([
-            getTopBanner(lang),
-            getStatistics(lang),
-            getProducts(lang),
-            getCustomers(lang),
-            getBottomBanner(lang),
-            getPartners(lang),
-            getProductCategories(lang),
-            getTranslations(lang),
-            getTopMeta(lang),
-            getTopImages(lang),
-            GetDiscountedProduct(lang),
-            GetPopulyarProduct(lang),
-        ]);
+        const topBannerData = await getTopBanner(lang);
+        const statisticsData = await getStatistics(lang);
+        const productsData = await getProducts(lang);
+        const customersData = await getCustomers(lang);
+        const bottomBannerData = await getBottomBanner(lang);
+        const partnersData = await getPartners(lang);
+        const productCategoriesData = await getProductCategories(lang);
+        const translationsData = await getTranslations(lang);
+        const Meta = await getTopMeta(lang);
+        const Logo = await getTopImages(lang);
+        const DiscountedProducts = await GetDiscountedProduct(lang);
+        const PopulyarProduct = await GetPopulyarProduct(lang);
+        // const [
+        //     statisticsData,
+        //     productsData,
+        //     customersData,
+        //     bottomBannerData,
+        //     partnersData,
+        //     productCategoriesData,
+        //     translationsData,
+        //     Meta,
+        //     Logo,
+        //     DiscountedProducts,
+        //     PopulyarProduct,
+        // ] = await Promise.all([
+        //     getStatistics(lang),
+        //     getProducts(lang),
+        //     getCustomers(lang),
+        //     getBottomBanner(lang),
+        //     getPartners(lang),
+        //     getProductCategories(lang),
+        //     getTranslations(lang),
+        //     getTopMeta(lang),
+        //     getTopImages(lang),
+        //     GetDiscountedProduct(lang),
+        //     GetPopulyarProduct(lang),
+        // ]);
 
         return {
             props: {

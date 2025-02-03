@@ -165,17 +165,21 @@ const DinamicPagesbylanguages = (props: Props) => {
 export default DinamicPagesbylanguages;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { page, lang } = context.params as { page: string; lang: string };
-
+    const meta = await getTopMeta(lang);
+    const Logo = await getTopImages(lang);
     if (page === ROUTES.about[lang]) {
         try {
-            const [aboutData, aboutBannerData, translationsData, meta, Logo] =
-                await Promise.all([
-                    getAbout(lang),
-                    getAboutBanner(lang),
-                    getTranslations(lang),
-                    getTopMeta(lang),
-                    getTopImages(lang),
-                ]);
+            const aboutData = await getAbout(lang);
+            const aboutBannerData = await getAboutBanner(lang);
+            const translationsData = await getTranslations(lang);
+
+            // const [aboutData, aboutBannerData, translationsData] =
+            //     await Promise.all([
+            //         getAbout(lang),
+            //         getAboutBanner(lang),
+            //         getTranslations(lang),
+
+            //     ]);
 
             return {
                 props: {
@@ -200,7 +204,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         }
     }
     if (page === ROUTES.products[lang]) {
-        const Logo = await getTopImages(lang);
+        // const Logo = await getTopImages(lang);
 
         return {
             props: { Logo },
@@ -210,8 +214,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         try {
             const projects = await getProjects(lang);
             const translations = await getTranslations(lang);
-            const meta = await getTopMeta(lang);
-            const Logo = await getTopImages(lang);
+            // const meta = await getTopMeta(lang);
+            // const Logo = await getTopImages(lang);
 
             return {
                 props: {
@@ -242,12 +246,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             10
         );
         try {
-            const [news, translations, meta] = await Promise.all([
-                getNews(lang, currentPage),
-                getTranslations(lang),
-                getTopMeta(lang),
-            ]);
-            const Logo = await getTopImages(lang);
+            const [news] = await Promise.all([getNews(lang, currentPage)]);
+            // const news = await getNews(lang);
+            const translations = await getTranslations(lang);
+            // const meta = await getTopMeta(lang);
+            // const Logo = await getTopImages(lang);
 
             return {
                 props: {

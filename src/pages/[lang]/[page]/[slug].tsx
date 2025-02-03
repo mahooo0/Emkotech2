@@ -273,15 +273,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
     // const id = context?.query?.id; // Get product ID from URL
     const { id } = context.query; // Get the query parameter ?id=10
-
+    const Logo = await getTopImages(lang);
+    const Metas = await getTopMeta(lang);
     if (page === ROUTES.products[lang]) {
         try {
-            const [productData, translationsData, Logo] = await Promise.all([
-                getProduct(lang, id), // Fetch product details using language and id
-                getTranslations(lang), // Fetch translations using language
-                getTopImages(lang),
-            ]);
-            const Metas = await getTopMeta(lang);
+            // const [productData, translationsData] = await Promise.all([
+            //     getProduct(lang, id), // Fetch product details using language and id
+            //     getTranslations(lang), // Fetch translations using language
+            // ]);
+            const productData = await getProduct(lang, id);
+            const translationsData = await getTranslations(lang);
 
             return {
                 props: {
@@ -304,15 +305,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
     if (page === ROUTES.project[lang]) {
         try {
-            const [projectResponse, translationsResponse] = await Promise.all([
-                getProjectById(lang, id),
-                getTranslations(lang),
-            ]);
+            // const [projectResponse, translationsResponse] = await Promise.all([
+            //     getProjectById(lang, id),
+            //     getTranslations(lang),
+            // ]);
 
             // Fetch related projects if needed
             const relatedProjectsResponse = await getProjects(lang); // Assuming `getProjects` fetches all projects
-            const Logo = await getTopImages(lang);
-            const Metas = await getTopMeta(lang);
+            const projectResponse = await getProjectById(lang, id);
+            const translationsResponse = await getTranslations(lang);
 
             const relatedProjects = relatedProjectsResponse.data.filter(
                 (p: Project) => p.id !== Number(id)
@@ -341,16 +342,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
     if (page === ROUTES.news[lang]) {
         try {
-            const [newsData, newsList, popularData, translationsData] =
-                await Promise.all([
-                    getNewsById(lang, id),
-                    getNews(lang, 1),
-                    getPopularNews(lang),
-                    getTranslations(lang),
-                ]);
-
-            const Logo = await getTopImages(lang);
-            const Metas = await getTopMeta(lang);
+            // const [newsData, newsList, popularData, translationsData] =
+            //     await Promise.all([
+            //         getNewsById(lang, id),
+            //         getNews(lang, 1),
+            //         getPopularNews(lang),
+            //         getTranslations(lang),
+            //     ]);
+            const newsList = await getNews(lang, 1);
+            // Assuming `getProjects` fetches all projects
+            const newsData = await getNewsById(lang, id);
+            const popularData = await getPopularNews(lang);
+            const translationsData = await getTranslations(lang);
+            // const Logo = await getTopImages(lang);
+            // const Metas = await getTopMeta(lang);
             console.log('Logo:', Logo);
 
             return {

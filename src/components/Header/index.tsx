@@ -7,7 +7,6 @@ import {
     getProductCategories,
     getProductsByParams,
     getProductSubCategories,
-    getProjects,
     getTopImages,
     getTranslations,
 } from '@/services/Request';
@@ -85,28 +84,27 @@ const NavContent = ({
     setIsBarOpen: (par: boolean) => void;
 }) => {
     const [isProjectsBarOpen, setIsProjectsBarOpen] = useState(false);
+    console.log(isProjectsBarOpen);
+
     const router = useRouter();
     const { lang } = router.query;
     const language = lang ? lang?.toString() : 'az';
     // const { language } = useLanguage();
-    const { data: projectsData } = useQuery({
-        queryKey: ['projects', language],
-        queryFn: () => getProjects(language),
-    });
+
     const { data: translationsData } = useQuery({
         queryKey: ['translations', language],
         queryFn: () => getTranslations(language),
     });
 
-    interface Project {
-        slug: {
-            az: string;
-            en: string;
-            ru: string;
-        };
-        id: string;
-        title: string;
-    }
+    // interface Project {
+    //     slug: {
+    //         az: string;
+    //         en: string;
+    //         ru: string;
+    //     };
+    //     id: string;
+    //     title: string;
+    // }
 
     return (
         <nav className="flex flex-wrap  items-center min-w-[240px] max-md:max-w-full h-[55px]">
@@ -151,11 +149,10 @@ const NavContent = ({
                 >
                     <NavItem
                         label={translationsData?.data?.Layihələr}
-                        hasDropdown
                         isActive={activeindex === 3}
                     />
                 </Link>
-                <div
+                {/* <div
                     onMouseEnter={() => setIsProjectsBarOpen(true)}
                     onMouseLeave={() => setIsProjectsBarOpen(false)}
                     className={`${
@@ -180,7 +177,7 @@ const NavContent = ({
                             </p>
                         </Link>
                     ))}
-                </div>
+                </div> */}
             </div>
             <div className="h-full">
                 <Link href={`/${language}/${ROUTES.news[language]}`}>

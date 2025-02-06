@@ -18,7 +18,6 @@ import {
 } from '@/services/Request';
 import PartnersSlider from '@/components/PartnersSwipper';
 import React from 'react';
-import ProjectCard from '@/components/ProjectCard';
 import { Product } from './products/[id]';
 import { TranslationsData } from './contact';
 import { GetServerSidePropsContext } from 'next';
@@ -34,13 +33,13 @@ interface Statistic {
     value: string;
 }
 
-interface Project {
-    slug: { az: string; en: string; ru: string };
-    id: number;
-    title: string;
-    description: string;
-    image: string;
-}
+// interface Project {
+//     slug: { az: string; en: string; ru: string };
+//     id: number;
+//     title: string;
+//     description: string;
+//     image: string;
+// }
 interface Customer {
     id: number;
     name: string;

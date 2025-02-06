@@ -133,7 +133,7 @@ export default function AboutUs({
                                             __html: aboutData?.data[0]
                                                 .description,
                                         }}
-                                        className="lg:mt-4 mt-0 text-lg text-black  max-md:max-w-full leading-6 leandingforHtml text-center"
+                                        className="lg:mt-4 mt-0 text-lg text-black  max-md:max-w-full leading-6 leandingforHtml text-start"
                                     ></div>
                                 </div>
                             </div>

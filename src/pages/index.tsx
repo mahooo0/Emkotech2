@@ -242,7 +242,7 @@ export default function Home({
                                 )
                             )}
                         </div>
-                        <div className="flex  lg:flex-row md:flex-row justify-between flex-col lg:gap-[140px] md:gap-[140px] gap-10 mt-12 w-full max-md:mt-10 max-md:max-w-full">
+                        {/* <div className="flex  lg:flex-row md:flex-row justify-between flex-col lg:gap-[140px] md:gap-[140px] gap-10 mt-12 w-full max-md:mt-10 max-md:max-w-full">
                             <p className=" text-lg text-wrap text-[#BDBDC1] lg:w-[776px] w-full max-sm:text-[16px]">
                                 {translationsData?.data?.statisciksdesc}
                             </p>
@@ -265,7 +265,7 @@ export default function Home({
                                     )
                                 )}
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>{' '}

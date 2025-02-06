@@ -46,7 +46,7 @@ const ProductCard = ({ data }: { data: Product }) => {
                             {' '}
                             {data.discounted_price === data.price
                                 ? ''
-                                : `${data.price}$`}
+                                : `${data.price}₼`}
                         </p>
                     </div>
                     {/* <button

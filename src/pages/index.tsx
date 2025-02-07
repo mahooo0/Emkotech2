@@ -367,8 +367,8 @@ export default function Home({
                         </Link>
                     </div>
                 </div>
-                <HomeCategory data={productCategoriesData.data} />
             </section>
+            <HomeCategory data={productCategoriesData.data} />
             <section className="flex flex-col rounded-none lg:px-[100px] md:px-[60px] px-[30px] lg:mt-[120px] mt-[60px]">
                 <div className="self-center text-5xl text-black text-wrap  max-md:text-4xl mr-2">
                     {translationsData?.data?.Müştərilərimiz}

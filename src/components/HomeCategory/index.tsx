@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Link from 'next/link';
 import { ROUTES } from '@/services/CONSTANTS';
 import { useRouter } from 'next/router';
+import SwiperCore from 'swiper';
+import { Navigation } from 'swiper/modules';
+
 type Subcategory = {
     id: number;
     name: string;
@@ -20,8 +23,12 @@ export type Category = {
     black_icon?: string;
     white_icon?: string;
 };
+
 export default function HomeCategory({ data }: { data: Category[] }) {
-    const [currentCAtegory, setCurrentCategory] = useState(0);
+    SwiperCore.use([Navigation]);
+
+    const [currentCategory, setCurrentCategory] = useState(0);
+    const swiperRef = useRef<SwiperCore | null>(null);
     const router = useRouter();
 
     const { lang } = router.query;
@@ -30,10 +37,21 @@ export default function HomeCategory({ data }: { data: Category[] }) {
             setCurrentCategory(data[0].id);
         }
     }, []);
+
     const language = lang?.toString() || 'az';
+
+    const handleNext = () => {
+        if (swiperRef.current) swiperRef.current.slideNext();
+    };
+
+    const handlePrev = () => {
+        if (swiperRef.current) swiperRef.current.slidePrev();
+    };
+
     return (
-        <div className="w-full mt-[34px]">
+        <div className="w-full mt-[34px] lg:px-[100px] md:px-[60px] px-[30px] relative">
             <Swiper
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
                 slidesPerView={'auto'}
                 grabCursor
                 className="bg-[#2677E2] !w-full rounded-[58px] !p-1 !drop-shadow-lg"
@@ -43,25 +61,25 @@ export default function HomeCategory({ data }: { data: Category[] }) {
                         <button
                             style={{
                                 backgroundColor:
-                                    currentCAtegory === item.id
+                                    currentCategory === item.id
                                         ? '#fff'
                                         : 'transparent',
                                 color:
-                                    currentCAtegory === item.id
+                                    currentCategory === item.id
                                         ? '#000000'
                                         : '#FFFFFF',
                                 fill:
-                                    currentCAtegory === item.id
+                                    currentCategory === item.id
                                         ? '#000000'
                                         : '#FFFFFF',
                             }}
-                            className=" flex flex-row gap-3 py-[11px] px-[28px] rounded-[57px]  duration-300  "
+                            className="flex flex-row gap-3 py-[11px] px-[28px] rounded-[57px] duration-300"
                             onClick={() => setCurrentCategory(item.id)}
                         >
-                            {item.black_icon && item.black_icon && (
+                            {item.black_icon && (
                                 <img
                                     src={
-                                        currentCAtegory === item.id
+                                        currentCategory === item.id
                                             ? item.black_icon
                                             : item.white_icon
                                     }
@@ -74,18 +92,94 @@ export default function HomeCategory({ data }: { data: Category[] }) {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  flex-row gap-[24px] flex-wrap mt-[42px] ">
+
+            {/* Prev Button */}
+            <button
+                className="absolute top-0 lg:left-10 left-1 max-sm:hidden transform "
+                onClick={handlePrev}
+            >
+                <svg
+                    width="56"
+                    height="56"
+                    viewBox="0 0 56 56"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <g filter="url(#filter0_d_66_2445)">
+                        <rect
+                            width="48"
+                            height="48"
+                            rx="24"
+                            x="4"
+                            y="4"
+                            fill="white"
+                        />
+                        <path
+                            d="M36.25 28H19.75"
+                            stroke="#BDBDC1"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                        <path
+                            d="M26.5 34.75L19.75 28L26.5 21.25"
+                            stroke="#BDBDC1"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </g>
+                </svg>
+            </button>
+
+            {/* Next Button */}
+            <button
+                className="absolute top-0 lg:right-10 right-1 transform max-sm:hidden  rotate-180"
+                onClick={handleNext}
+            >
+                <svg
+                    width="56"
+                    height="56"
+                    viewBox="0 0 56 56"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <g filter="url(#filter0_d_66_2445)">
+                        <rect
+                            width="48"
+                            height="48"
+                            rx="24"
+                            x="4"
+                            y="4"
+                            fill="white"
+                        />
+                        <path
+                            d="M36.25 28H19.75"
+                            stroke="#BDBDC1"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                        <path
+                            d="M26.5 34.75L19.75 28L26.5 21.25"
+                            stroke="#BDBDC1"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </g>
+                </svg>
+            </button>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 flex-row gap-[24px] flex-wrap mt-[42px]">
                 {data
-                    .find((item) => item.id === currentCAtegory)
+                    .find((item) => item.id === currentCategory)
                     ?.subcategories.map((item: Subcategory) => (
                         <Link
                             key={item.id}
-                            href={`/${language}/${ROUTES.products[language]}?category=${currentCAtegory}&sub_category=${item.id}`}
+                            href={`/${language}/${ROUTES.products[language]}?category=${currentCategory}&sub_category=${item.id}`}
                         >
-                            <div
-                                className="w-full flex flex-col items-center gap-4 justify-center h-[130px] bg-[#EEEEEE] rounded-[18px]"
-                                key={item.id}
-                            >
+                            <div className="w-full flex flex-col items-center gap-4 justify-center h-[130px] bg-[#EEEEEE] rounded-[18px]">
                                 <img
                                     className="w-[75px] aspect-square"
                                     src={item.image}
@@ -95,16 +189,6 @@ export default function HomeCategory({ data }: { data: Category[] }) {
                             </div>
                         </Link>
                     ))}
-                {/* {Array.from({ length: 10 }).map((_, index) => (
-                    <div className="w-full flex flex-col items-center gap-4 justify-center h-[130px] bg-[#EEEEEE] rounded-[18px]">
-                        <img
-                            className="w-[75px] aspect-square"
-                            src="https://s3-alpha-sig.figma.com/img/ce5c/a16b/625d749eb78e3d2194c0264eecf156cb?Expires=1738540800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=gchaUTuFCDpU2TQ8yQ~Qps1HrlBpNIDRGeT5WnaJpdLZs4Nwyx4z4bhEhEHLLC3m9TX4zconXrjnVpnk6Wre8zRi0uxM3mIfGmRBmF1Oo8pbrqZPORqzO9hpI17EaxoouvnoZs9uBLhF-E8RGue-pvSrSjKDkLposbODO-hh7thJq8d48wp64UO8IeX7cXr~fYk9Odd6JU7by5s-YnqKBiPsrI-Z-DND~AtxSBzCbyXbDW~A3KtogLf9i2Guuvv~yiww~jqbPBzjlD0UmR29CQSpxKwkO0wKzNuLc5mWnbIUbZ2KGSkaqu--8-tNguu8KOBGRnGT1kz47WtZEQedCw__"
-                            alt=""
-                        />
-                        <p>Turbo-HD Kameralar</p>
-                    </div>
-                ))} */}
             </div>
         </div>
     );

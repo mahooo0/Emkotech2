@@ -60,10 +60,10 @@ const CategoryBAr = ({ categories, isopen, isLoading }: CategoryBarProps) => {
         >
             <div className="flex flex-wrap gap-10 items-start w-full max-w-[1224px] max-md:max-w-full">
                 <div className="flex-auto mt-2 max-md:max-w-full">
-                    <div className="flex gap-5 max-md:flex-col lg:h-[300px] md:h-[300px]">
+                    <div className="flex gap-5 max-md:flex-col">
                         <aside
                             data-layername="column"
-                            className="flex flex-col w-[26%] max-md:ml-0 max-md:w-full h-[300px]"
+                            className="flex flex-col w-[26%] max-md:ml-0 max-md:w-full "
                         >
                             <div
                                 data-layername="kate"

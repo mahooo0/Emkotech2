@@ -116,7 +116,7 @@ const EssentialCamera: React.FC<{
                             <span className="  text-base text-neutral-400 line-through">
                                 {data?.discounted_price === data?.price
                                     ? ''
-                                    : data?.discounted_price}
+                                    : `${data?.discounted_price}₼`}
                             </span>
                         </div>
                         <div

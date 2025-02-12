@@ -12,7 +12,7 @@ export default function ProjectCard({ data }: { data: Project | undefined }) {
         <Link
             href={`/${language}/${ROUTES.project[language]}/${
                 data?.slug[(language as 'az') || 'en' || 'ru']
-            }?id=${data?.id}`}
+            }`}
         >
             {' '}
             <div

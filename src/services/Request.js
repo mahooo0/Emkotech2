@@ -184,6 +184,21 @@ export const getProduct = async (language, id) => {
         throw error;
     }
 };
+export const getProductBySlug = async (language, slug) => {
+    try {
+        if (!slug) {
+            return;
+        }
+        const response = await axios.get(
+            `https://emkotech.epart.az/api/product-detail/${slug}`,
+            { headers: { 'Accept-Language': language } }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        throw error;
+    }
+};
 export const getNews = async (language, page) => {
     console.log(language);
     try {
@@ -228,6 +243,24 @@ export const getNewsById = async (language, id) => {
         throw error;
     }
 };
+export const getNewsBySlug = async (language, slug) => {
+    console.log('slug', slug);
+    if (!slug) {
+        console.log('slug not found');
+
+        return;
+    }
+    try {
+        const response = await axios.get(
+            `https://emkotech.epart.az/api/news-detail/${slug}`,
+            { headers: { 'Accept-Language': language } }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching news by id:', error);
+        throw error;
+    }
+};
 export const getProjects = async (language) => {
     try {
         const response = await axios.get(
@@ -262,6 +295,23 @@ export const getProjectById = async (language, id) => {
     try {
         const response = await axios.get(
             `https://emkotech.epart.az/api/projects/${id}`,
+            { headers: { 'Accept-Language': language } }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching project by id:', error);
+        throw error;
+    }
+};
+export const getProjectBySlug = async (language, slug) => {
+    console.log('slug', slug);
+
+    if (!slug) {
+        return;
+    }
+    try {
+        const response = await axios.get(
+            `https://emkotech.epart.az/api/project-detail/${slug}`,
             { headers: { 'Accept-Language': language } }
         );
         return response.data;
@@ -417,7 +467,6 @@ export const getProductsByParams = async (
                 headers: {
                     'Accept-Language': language,
                 },
-                timeout: 5000,
             }
         );
         return response.data;

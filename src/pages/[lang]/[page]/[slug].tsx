@@ -2,13 +2,15 @@ import ProductDetails, { SlideImage } from '@/pages/products/[id]';
 import ProjectsId, { Translation } from '@/pages/projects/[id]';
 import {
     getNews,
-    getNewsById,
+    getNewsBySlug,
     getPopularNews,
+    getProductBySlug,
+    getProjectBySlug,
     getTopImages,
     getTopMeta,
 } from '@/services/Request';
 import { ROUTES } from '@/services/CONSTANTS';
-import { getProduct, getProjectById, getProjects } from '@/services/Request';
+import { getProjects } from '@/services/Request';
 import { getTranslations } from '@/services/Request';
 import { MetaItem, Project, SiteAssets } from '@/types';
 import { GetServerSidePropsContext } from 'next';
@@ -84,6 +86,8 @@ export default function ID(props: Props) {
             <>
                 <Head>
                     <title>
+                        <link rel="canonical" href={fullUrl} />
+
                         {/* {
                             props.Metas.find(
                                 (item) => item.type === 'ProductDetail'
@@ -150,6 +154,8 @@ export default function ID(props: Props) {
         return (
             <>
                 <Head>
+                    <link rel="canonical" href={fullUrl} />
+
                     <title>
                         {props.project.meta_title}
                         {/* {
@@ -211,6 +217,8 @@ export default function ID(props: Props) {
         return (
             <>
                 <Head>
+                    <link rel="canonical" href={fullUrl} />
+
                     <title>{props.newsProps.newsData.meta_title}</title>
                     <meta
                         name="description"
@@ -267,11 +275,18 @@ export default function ID(props: Props) {
     return <div>ID</div>;
 }
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const { page, lang = 'az' } = context.params as {
+    const {
+        page,
+        lang = 'az',
+        slug,
+    } = context.params as {
         page: string;
         lang: string;
+        slug: string;
     };
     // const id = context?.query?.id; // Get product ID from URL
+    console.log('slugAAa', slug);
+
     const { id } = context.query; // Get the query parameter ?id=10
     const Logo = await getTopImages(lang);
     const Metas = await getTopMeta(lang);
@@ -281,7 +296,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             //     getProduct(lang, id), // Fetch product details using language and id
             //     getTranslations(lang), // Fetch translations using language
             // ]);
-            const productData = await getProduct(lang, id);
+            const productData = await getProductBySlug(lang, slug);
             const translationsData = await getTranslations(lang);
 
             return {
@@ -312,7 +327,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
             // Fetch related projects if needed
             const relatedProjectsResponse = await getProjects(lang); // Assuming `getProjects` fetches all projects
-            const projectResponse = await getProjectById(lang, id);
+            // const projectResponse = await getProjectById(lang, id);
+            const projectResponse = await getProjectBySlug(lang, slug);
             const translationsResponse = await getTranslations(lang);
 
             const relatedProjects = relatedProjectsResponse.data.filter(
@@ -351,12 +367,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             //     ]);
             const newsList = await getNews(lang, 1);
             // Assuming `getProjects` fetches all projects
-            const newsData = await getNewsById(lang, id);
+            // const newsData = await getNewsById(lang, id);
+            const newsData = await getNewsBySlug(lang, slug);
             const popularData = await getPopularNews(lang);
             const translationsData = await getTranslations(lang);
             // const Logo = await getTopImages(lang);
             // const Metas = await getTopMeta(lang);
-            console.log('Logo:', Logo);
+            // console.log('Logo:', Logo);
 
             return {
                 props: {
@@ -365,7 +382,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                         newsList: newsList.data || [],
                         popularData: popularData.data || [],
                         translationsData: translationsData.data || {},
-                        id,
                         nodata: false,
                         error: '',
                     },

@@ -76,6 +76,8 @@ export default function AboutUs({
         <>
             <Head>
                 <title>{pagemetas?.['meta-title']}</title>
+                <link rel="canonical" href={fullUrl} />
+
                 <meta
                     name="description"
                     content={pagemetas?.['meta-description']}

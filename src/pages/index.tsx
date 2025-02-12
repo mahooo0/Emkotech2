@@ -134,7 +134,7 @@ export default function Home({
                     name="description"
                     content={pagemetas?.['meta-description']}
                 />
-
+                <link rel="canonical" href={fullUrl} />
                 <meta name="keywords" content={pagemetas?.['meta-keys']} />
                 <meta property="og:title" content={pagemetas?.['meta-title']} />
                 <meta

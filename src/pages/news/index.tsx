@@ -56,6 +56,8 @@ export default function Nevs({
     return (
         <>
             <Head>
+                <link rel="canonical" href={fullUrl} />
+
                 <title>{pagemetas?.['meta-title']}</title>
                 <meta
                     name="description"
@@ -125,7 +127,7 @@ export default function Nevs({
                                         item.slug[
                                             (language as 'az') || 'en' || 'ru'
                                         ]
-                                    }/?id=${item.id}`}
+                                    }`}
                                 >
                                     {' '}
                                     <div

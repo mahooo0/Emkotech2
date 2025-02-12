@@ -97,6 +97,8 @@ const Contact = ({ contactsData, translationsData, meta }: ContactProps) => {
     return (
         <>
             <Head>
+                <link rel="canonical" href={fullUrl} />
+
                 <title>{pagemetas?.['meta-title']}</title>
                 <meta
                     name="description"

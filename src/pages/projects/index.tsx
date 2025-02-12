@@ -45,6 +45,8 @@ export default function Projects({
     return (
         <>
             <Head>
+                <link rel="canonical" href={fullUrl} />
+
                 <title>{pagemetas?.['meta-title']}</title>
                 <meta
                     name="description"

@@ -20,7 +20,7 @@ const ProductCard = ({ data }: { data: Product }) => {
                 }}
                 href={`/${language}/${
                     ROUTES.products[language as keyof typeof ROUTES.products]
-                }/${data?.slug[lang as 'az' | 'en' | 'ru']}?id=${data?.id}`}
+                }/${data?.slug[lang as 'az' | 'en' | 'ru']}`}
             >
                 <img
                     loading="lazy"
@@ -64,9 +64,7 @@ const ProductCard = ({ data }: { data: Product }) => {
                             ROUTES.products[
                                 language as keyof typeof ROUTES.products
                             ]
-                        }/${data?.slug[lang as 'az' | 'en' | 'ru']}?id=${
-                            data?.id
-                        }`}
+                        }/${data?.slug[lang as 'az' | 'en' | 'ru']}`}
                     >
                         {' '}
                         <button

@@ -55,15 +55,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const dynamicPathsProjects = projects.flatMap((project: Project) => {
         return [
             {
-                url: `/az/layihələr/${project.slug.az}?id=${project.id}`,
+                url: `/az/layihələr/${project.slug.az}`,
                 lastModified: formatDate(Date.now()),
             },
             {
-                url: `/en/projects/${project.slug.en}?id=${project.id}`,
+                url: `/en/projects/${project.slug.en}`,
                 lastModified: formatDate(Date.now()),
             },
             {
-                url: `/ru/проекты/${project.slug.ru}?id=${project.id}`,
+                url: `/ru/проекты/${project.slug.ru}`,
                 lastModified: formatDate(Date.now()),
             },
         ];
@@ -71,15 +71,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const dynamicPathsNews = news.flatMap((news: NewsItem) => {
         return [
             {
-                url: `/az/xəbərlər/${news.slug.az}?id=${news.id}`,
+                url: `/az/xəbərlər/${news.slug.az}`,
                 lastModified: formatDate(Date.now()),
             },
             {
-                url: `/en/news/${news.slug.en}?id=${news.id}`,
+                url: `/en/news/${news.slug.en}`,
                 lastModified: formatDate(Date.now()),
             },
             {
-                url: `/ru/новости/${news.slug.ru}?id=${news.id}`,
+                url: `/ru/новости/${news.slug.ru}`,
                 lastModified: formatDate(Date.now()),
             },
         ];
@@ -87,15 +87,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const dynamicPaths = products.flatMap((product: Product) => {
         return [
             {
-                url: `/az/məhsullar/${product.slug.az}?id=${product.id}`,
+                url: `/az/məhsullar/${product.slug.az}`,
                 lastModified: formatDate(Date.now()),
             },
             {
-                url: `/en/products/${product.slug.en}?id=${product.id}`,
+                url: `/en/products/${product.slug.en}`,
                 lastModified: formatDate(Date.now()),
             },
             {
-                url: `/ru/продукты/${product.slug.ru}?id=${product.id}`,
+                url: `/ru/продукты/${product.slug.ru}`,
                 lastModified: formatDate(Date.now()),
             },
         ];

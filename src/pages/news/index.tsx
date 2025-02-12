@@ -127,7 +127,7 @@ export default function Nevs({
                                         item.slug[
                                             (language as 'az') || 'en' || 'ru'
                                         ]
-                                    }`}
+                                    }?id=${item.id}`}
                                 >
                                     {' '}
                                     <div

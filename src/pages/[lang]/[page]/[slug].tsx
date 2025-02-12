@@ -2,7 +2,7 @@ import ProductDetails, { SlideImage } from '@/pages/products/[id]';
 import ProjectsId, { Translation } from '@/pages/projects/[id]';
 import {
     getNews,
-    getNewsBySlug,
+    getNewsById,
     getPopularNews,
     getProductBySlug,
     getProjectBySlug,
@@ -367,8 +367,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             //     ]);
             const newsList = await getNews(lang, 1);
             // Assuming `getProjects` fetches all projects
-            // const newsData = await getNewsById(lang, id);
-            const newsData = await getNewsBySlug(lang, slug);
+            const newsData = await getNewsById(lang, id);
+            // const newsData = await getNewsBySlug(lang, slug);
             const popularData = await getPopularNews(lang);
             const translationsData = await getTranslations(lang);
             // const Logo = await getTopImages(lang);

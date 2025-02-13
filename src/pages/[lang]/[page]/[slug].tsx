@@ -284,12 +284,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         lang: string;
         slug: string;
     };
-    // const id = context?.query?.id; // Get product ID from URL
-    console.log('slugAAa', slug);
 
-    const { id } = context.query; // Get the query parameter ?id=10
-    const Logo = await getTopImages(lang);
-    const Metas = await getTopMeta(lang);
+    if (!slug) {
+        return { notFound: true };
+    }
+
+    // const id = context?.query?.id; // Get product ID from URL
+    const [Logo, Metas, translationsData] = await Promise.all([
+        getTopImages(lang),
+        getTopMeta(lang),
+        getTranslations(lang),
+    ]);
+
     if (page === ROUTES.products[lang]) {
         try {
             // const [productData, translationsData] = await Promise.all([
@@ -297,14 +303,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             //     getTranslations(lang), // Fetch translations using language
             // ]);
             const productData = await getProductBySlug(lang, slug);
+
+            if (!productData?.data) {
+                return { notFound: true };
+            }
+
             const translationsData = await getTranslations(lang);
 
             return {
                 props: {
                     productData,
-                    translationsData,
-                    Logo,
-                    Metas,
+                    translationsData: translationsData?.data || {},
+                    Logo: Logo || {},
+                    Metas: Metas || {},
                 },
             };
         } catch (error) {
@@ -320,25 +331,25 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
     if (page === ROUTES.project[lang]) {
         try {
-            // const [projectResponse, translationsResponse] = await Promise.all([
-            //     getProjectById(lang, id),
-            //     getTranslations(lang),
-            // ]);
+            const [projectResponse, projectsResponse] = await Promise.all([
+                getProjectBySlug(lang, slug),
+                getProjects(lang),
+            ]);
 
+            if (!projectResponse?.data) {
+                return { notFound: true };
+            }
             // Fetch related projects if needed
-            const relatedProjectsResponse = await getProjects(lang); // Assuming `getProjects` fetches all projects
             // const projectResponse = await getProjectById(lang, id);
-            const projectResponse = await getProjectBySlug(lang, slug);
-            const translationsResponse = await getTranslations(lang);
-
-            const relatedProjects = relatedProjectsResponse.data.filter(
-                (p: Project) => p.id !== Number(id)
+            const relatedProjects = projectsResponse.data.filter(
+                // @ts-ignore
+                (p) => p.slug[lang] !== slug
             );
 
             return {
                 props: {
                     project: projectResponse.data || null,
-                    translations: translationsResponse.data || {},
+                    translations: translationsData?.data || {},
                     relatedProjects: relatedProjects || [],
                     Logo,
                     Metas,
@@ -358,31 +369,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
     if (page === ROUTES.news[lang]) {
         try {
-            // const [newsData, newsList, popularData, translationsData] =
-            //     await Promise.all([
-            //         getNewsById(lang, id),
-            //         getNews(lang, 1),
-            //         getPopularNews(lang),
-            //         getTranslations(lang),
-            //     ]);
-            const newsList = await getNews(lang, 1);
-            // Assuming `getProjects` fetches all projects
-            // const newsData = await getNewsById(lang, id);
-            const newsDataBySlug = await getNewsBySlug(lang, slug);
-            console.log('niga', newsDataBySlug);
-            const popularData = await getPopularNews(lang);
-            const translationsData = await getTranslations(lang);
-            // const Logo = await getTopImages(lang);
-            // const Metas = await getTopMeta(lang);
-            // console.log('Logo:', Logo);
+            const [newsDataBySlug, newsList, popularData] = await Promise.all([
+                getNewsBySlug(lang, slug),
+                getNews(lang, 1),
+                getPopularNews(lang),
+            ]);
+            if (!newsDataBySlug?.data) {
+                return { notFound: true };
+            }
 
             return {
                 props: {
                     newsProps: {
-                        newsData: newsDataBySlug.data || null,
-                        newsList: newsList.data || [],
-                        popularData: popularData.data || [],
-                        translationsData: translationsData.data || {},
+                        newsData: newsDataBySlug.data,
+                        newsList: newsList?.data || [],
+                        popularData: popularData?.data || [],
+                        translationsData: translationsData?.data || {},
                         nodata: false,
                         error: '',
                     },
@@ -391,20 +393,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 },
             };
         } catch (error) {
-            console.error(error);
-
+            console.error('Error fetching news:', error);
+            throw error;
             // Default values for error scenarios
-            return {
-                props: {
-                    newsData: null,
-                    newsList: [],
-                    popularData: [],
-                    translationsData: {},
-                    id,
-                    nodata: true,
-                    error: `${error}`,
-                },
-            };
         }
     }
 

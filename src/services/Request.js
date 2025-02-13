@@ -244,12 +244,10 @@ export const getNewsById = async (language, id) => {
     }
 };
 export const getNewsBySlug = async (language, slug) => {
-    console.log('slug', slug);
     if (!slug) {
-        console.log('slug not found');
-
-        return;
+        throw new Error('Slug is required');
     }
+
     try {
         const response = await axios.get(
             `https://emkotech.epart.az/api/news-detail/${slug}`,
@@ -257,7 +255,7 @@ export const getNewsBySlug = async (language, slug) => {
         );
         return response.data;
     } catch (error) {
-        console.error('Error fetching news by id:', error);
+        console.error('Error fetching news by slug:', error);
         throw error;
     }
 };

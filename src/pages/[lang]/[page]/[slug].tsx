@@ -275,7 +275,7 @@ export default function ID(props: Props) {
     return <div>ID</div>;
 }
 
-export const debug = (...args: any[]) => {
+export const debug = (...args: string[]) => {
     if (process.env.NODE_ENV !== 'production') {
         console.log('[Server]', ...args);
     }
@@ -292,7 +292,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         slug: string;
     };
 
-    debug('Fetching data for:', { page, lang, slug });
+    debug('Fetching data for:', JSON.stringify({ page, lang, slug }));
 
     if (!slug) {
         debug('No slug provided');
@@ -389,7 +389,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             }
 
             if (!newsDataBySlug?.data) {
-                debug('No data found for:', { page, slug });
+                debug('No data found for:', JSON.stringify({ page, slug }));
                 return { notFound: true };
             }
 

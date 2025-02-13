@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { debug } from 'console';
 
 export const getTopBanner = async (language) => {
     try {
@@ -248,12 +249,18 @@ export const getNewsBySlug = async (language, slug) => {
         throw new Error('Slug is required');
     }
 
+    if (!slug) {
+        console.error('ERROR: Slug is undefined in production');
+        return;
+    }
+    debug('nem e ', slug);
+
     try {
         const response = await axios.get(
             `https://emkotech.epart.az/api/news-detail/${encodeURIComponent(
                 slug
             )}`,
-            { headers: { 'Accept-Language': language } }
+            { headers: { 'Accept-Language': language }, timeout: 10000 }
         );
         if (!response.data) {
             throw new Error('No data received from API');

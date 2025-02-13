@@ -22,7 +22,7 @@ export const ROUTES: Routes = {
         ru: 'проекты',
     },
     news: {
-        az: 'xəbərlər',
+        az: 'xeberler',
         en: 'news',
         ru: 'новости',
     },

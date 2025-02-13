@@ -342,8 +342,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             // Fetch related projects if needed
             // const projectResponse = await getProjectById(lang, id);
             const relatedProjects = projectsResponse.data.filter(
-                // @ts-expect-error
-                (p) => p.slug[lang] !== slug
+                (p: { slug: { [x: string]: string } }) => p.slug[lang] !== slug
             );
 
             return {

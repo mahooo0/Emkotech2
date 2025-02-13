@@ -359,10 +359,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (page === ROUTES.news[lang]) {
         try {
             const newsList = await getNews(lang, 1);
-            const newsData = await getNewsById(lang, '11');
+            const newsData = await getNewsById(lang, id);
             // const newsData = await getNewsBySlug(lang, slug);
-            console.log(newsData);
-
             const popularData = await getPopularNews(lang);
             const translationsData = await getTranslations(lang);
             const response = await fetch(

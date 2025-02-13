@@ -360,6 +360,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         try {
             const newsList = await getNews(lang, 1);
             const newsData = await getNewsById(lang, id);
+
             // const newsData = await getNewsBySlug(lang, slug);
             const popularData = await getPopularNews(lang);
             const translationsData = await getTranslations(lang);
@@ -379,6 +380,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                         translationsData: translationsData.data || {},
                         nodata: false,
                         error: '',
+                        newsData1: newsData,
                     },
                     Logo: Logo,
                     Metas: Metas,

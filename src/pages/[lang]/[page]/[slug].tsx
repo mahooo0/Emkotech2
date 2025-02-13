@@ -3,6 +3,7 @@ import ProjectsId, { Translation } from '@/pages/projects/[id]';
 import {
     getNews,
     getNewsById,
+    getNewsBySlug,
     getPopularNews,
     getProductBySlug,
     getProjectBySlug,
@@ -367,8 +368,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             //     ]);
             const newsList = await getNews(lang, 1);
             // Assuming `getProjects` fetches all projects
-            const newsData = await getNewsById(lang, id);
-            // const newsData = await getNewsBySlug(lang, slug);
+            // const newsData = await getNewsById(lang, id);
+            const newsDataBySlug = await getNewsBySlug(lang, slug);
+            console.log('niga', newsDataBySlug);
             const popularData = await getPopularNews(lang);
             const translationsData = await getTranslations(lang);
             // const Logo = await getTopImages(lang);
@@ -378,7 +380,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             return {
                 props: {
                     newsProps: {
-                        newsData: newsData.data || null,
+                        newsData: newsDataBySlug.data || null,
                         newsList: newsList.data || [],
                         popularData: popularData.data || [],
                         translationsData: translationsData.data || {},

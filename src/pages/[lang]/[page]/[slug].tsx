@@ -2,6 +2,7 @@ import ProductDetails, { SlideImage } from '@/pages/products/[id]';
 import ProjectsId, { Translation } from '@/pages/projects/[id]';
 import {
     getNews,
+    getNewsById,
     getPopularNews,
     getProductBySlug,
     getProjectBySlug,
@@ -357,22 +358,27 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
     if (page === ROUTES.news[lang]) {
         try {
+            // const [newsData, newsList, popularData, translationsData] =
+            //     await Promise.all([
+            //         getNewsById(lang, id),
+            //         getNews(lang, 1),
+            //         getPopularNews(lang),
+            //         getTranslations(lang),
+            //     ]);
             const newsList = await getNews(lang, 1);
-
+            // Assuming `getProjects` fetches all projects
+            const newsData = await getNewsById(lang, id);
             // const newsData = await getNewsBySlug(lang, slug);
             const popularData = await getPopularNews(lang);
             const translationsData = await getTranslations(lang);
-            const response = await fetch(
-                `https://emkotech.epart.az/api/news-detail/${slug}`,
-                {
-                    headers: { 'Accept-Language': lang },
-                }
-            );
-            const newsData2 = await response.json();
+            // const Logo = await getTopImages(lang);
+            // const Metas = await getTopMeta(lang);
+            // console.log('Logo:', Logo);
+
             return {
                 props: {
                     newsProps: {
-                        newsData: newsData2.data || null,
+                        newsData: newsData.data || null,
                         newsList: newsList.data || [],
                         popularData: popularData.data || [],
                         translationsData: translationsData.data || {},

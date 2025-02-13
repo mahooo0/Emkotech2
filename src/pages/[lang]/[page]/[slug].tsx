@@ -358,23 +358,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
     if (page === ROUTES.news[lang]) {
         try {
-            // const [newsData, newsList, popularData, translationsData] =
-            //     await Promise.all([
-            //         getNewsById(lang, id),
-            //         getNews(lang, 1),
-            //         getPopularNews(lang),
-            //         getTranslations(lang),
-            //     ]);
             const newsList = await getNews(lang, 1);
-            // Assuming `getProjects` fetches all projects
             const newsData = await getNewsById(lang, id);
             // const newsData = await getNewsBySlug(lang, slug);
             const popularData = await getPopularNews(lang);
             const translationsData = await getTranslations(lang);
-            // const Logo = await getTopImages(lang);
-            // const Metas = await getTopMeta(lang);
-            // console.log('Logo:', Logo);
-
+            const response = await fetch(
+                `https://emkotech.epart.az/api/news-detail/${slug}`,
+                {
+                    headers: { 'Accept-Language': lang },
+                }
+            );
+            const newsData2 = await response.json();
             return {
                 props: {
                     newsProps: {
@@ -384,6 +379,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                         translationsData: translationsData.data || {},
                         nodata: false,
                         error: '',
+                        newsData2,
                     },
                     Logo: Logo,
                     Metas: Metas,

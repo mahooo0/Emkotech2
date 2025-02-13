@@ -259,8 +259,12 @@ export const getNewsBySlug = async (language, slug) => {
             throw new Error('No data received from API');
         }
 
+        debug('Page-specific data fetched successfully', response.data);
+
         return response.data;
     } catch (error) {
+        debug('Page-specificERR', error);
+
         console.error('Error fetching news by slug:', error);
         return null;
     }

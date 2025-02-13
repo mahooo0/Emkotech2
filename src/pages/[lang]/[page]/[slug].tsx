@@ -274,6 +274,13 @@ export default function ID(props: Props) {
     }
     return <div>ID</div>;
 }
+
+export const debug = (...args: any[]) => {
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('[Server]', ...args);
+    }
+};
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const {
         page,
@@ -285,7 +292,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         slug: string;
     };
 
+    debug('Fetching data for:', { page, lang, slug });
+
     if (!slug) {
+        debug('No slug provided');
         return { notFound: true };
     }
 
@@ -375,6 +385,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             ]);
             if (!newsDataBySlug?.data) {
                 console.log('cindir', newsDataBySlug.data);
+                return { notFound: true };
+            }
+
+            if (!newsDataBySlug?.data) {
+                debug('No data found for:', { page, slug });
                 return { notFound: true };
             }
 

@@ -43,7 +43,9 @@ export function Aside({ data }: { data: NewsItem[] }) {
                 {filteredData.length > 0 && search ? (
                     filteredData.map((item: NewsItem, i: number) => (
                         <Link
-                            href={`/${language}/${ROUTES.news[language]}/${item.slug}?id=${item.id}`}
+                            href={`/${language}/${ROUTES.news[language]}/${
+                                item.slug[(language as 'az', 'en', 'ru')]
+                            }?`}
                             key={i}
                         >
                             <p

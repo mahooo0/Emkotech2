@@ -2,7 +2,6 @@ import ProductDetails, { SlideImage } from '@/pages/products/[id]';
 import ProjectsId, { Translation } from '@/pages/projects/[id]';
 import {
     getNews,
-    getNewsById,
     getPopularNews,
     getProductBySlug,
     getProjectBySlug,

@@ -250,13 +250,19 @@ export const getNewsBySlug = async (language, slug) => {
 
     try {
         const response = await axios.get(
-            `https://emkotech.epart.az/api/news-detail/${slug}`,
+            `https://emkotech.epart.az/api/news-detail/${encodeURIComponent(
+                slug
+            )}`,
             { headers: { 'Accept-Language': language } }
         );
+        if (!response.data) {
+            throw new Error('No data received from API');
+        }
+
         return response.data;
     } catch (error) {
         console.error('Error fetching news by slug:', error);
-        throw error;
+        return null;
     }
 };
 export const getProjects = async (language) => {

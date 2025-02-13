@@ -1,5 +1,5 @@
+import { debug } from '@/pages/[lang]/[page]/[slug]';
 import axios from 'axios';
-import { debug } from 'console';
 
 export const getTopBanner = async (language) => {
     try {
@@ -270,9 +270,8 @@ export const getNewsBySlug = async (language, slug) => {
 
         return response.data;
     } catch (error) {
-        debug('Page-specificERR', error);
-
         console.error('Error fetching news by slug:', error);
+        debug('Page-specificERR', error);
         return null;
     }
 };

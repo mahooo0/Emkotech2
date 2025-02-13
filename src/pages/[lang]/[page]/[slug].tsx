@@ -359,7 +359,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (page === ROUTES.news[lang]) {
         try {
             const newsList = await getNews(lang, 1);
-            const newsData = await getNewsById(lang, id);
+            // const newsData = await getNewsById(lang, id);
             // const newsData = await getNewsBySlug(lang, slug);
             const popularData = await getPopularNews(lang);
             const translationsData = await getTranslations(lang);
@@ -373,13 +373,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             return {
                 props: {
                     newsProps: {
-                        newsData: newsData.data || null,
+                        newsData: newsData2.data || null,
                         newsList: newsList.data || [],
                         popularData: popularData.data || [],
                         translationsData: translationsData.data || {},
                         nodata: false,
                         error: '',
-                        newsData2,
                     },
                     Logo: Logo,
                     Metas: Metas,

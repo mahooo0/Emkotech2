@@ -86,14 +86,12 @@ export default function ID(props: Props) {
             <>
                 <Head>
                     <title>
-                        <link rel="canonical" href={fullUrl} />
-
-                        {/* {
-                            props.Metas.find(
-                                (item) => item.type === 'ProductDetail'
-                            )?.['meta-title']
-                        } */}
-                        {props.productData?.product.meta_title}
+                        {}
+                        {props.productData?.product.meta_title === null
+                            ? props.Metas.find(
+                                  (item) => item.type === 'ProductDetail'
+                              )?.['meta-title']
+                            : props.productData?.product.meta_title}
                     </title>
                     <meta
                         name="description"
@@ -103,10 +101,19 @@ export default function ID(props: Props) {
                         name="keywords"
                         content={props.productData?.product.meta_keys}
                     />
-                    <meta
-                        property="og:title"
-                        content={props.productData?.product.meta_title}
-                    />
+                    {props.productData?.product.meta_title === null ? (
+                        <meta
+                            property="og:title"
+                            content={props.productData?.product.meta_title}
+                        />
+                    ) : (
+                        <meta
+                            property="og:title"
+                            content={'props.productData?.product.meta_title'}
+                        />
+                    )}
+                    <link rel="canonical" href={fullUrl} />
+
                     <meta
                         property="og:description"
                         content={props.productData?.product.meta_description}
@@ -157,12 +164,12 @@ export default function ID(props: Props) {
                     <link rel="canonical" href={fullUrl} />
 
                     <title>
-                        {props.project.meta_title}
-                        {/* {
-                            props.Metas.find(
-                                (item) => item.type === 'ProjectDetail'
-                            )?.['meta-title']
-                        } */}
+                        {}
+                        {props.productData?.product.meta_title === null
+                            ? props.Metas.find(
+                                  (item) => item.type === 'ProductDetail'
+                              )?.['meta-title']
+                            : props.project.meta_title}
                     </title>
                     <meta
                         name="description"
@@ -314,9 +321,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             // ]);
             const productData = await getProductBySlug(lang, slug);
 
-            if (!productData?.data) {
-                return { notFound: true };
-            }
+            // if (!productData?.data) {
+            //     return { notFound: true };
+            // }
 
             const translationsData = await getTranslations(lang);
 

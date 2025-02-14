@@ -69,12 +69,12 @@ const CategoryBAr = ({ categories, isopen, isLoading }: CategoryBarProps) => {
                                 data-layername="kate"
                                 className="flex flex-col grow px-5 py-5 font-medium border-r w-[300px]  border-gray-200 border-opacity-90 min-h-[292px]  max-md:mt-6"
                             >
-                                <h2
+                                <p
                                     data-layername="kateqoriyalar"
                                     className="text-sm text-neutral-400"
                                 >
                                     KATEQORİYALAR
-                                </h2>
+                                </p>
                                 <nav
                                     data-layername="kateqoriyalarModalContentText"
                                     className="flex flex-col mt-4 w-full text-lg text-black"
@@ -211,12 +211,12 @@ const CategoryBAr = ({ categories, isopen, isLoading }: CategoryBarProps) => {
                                                                 }
                                                                 className="object-contain shrink-0 self-stretch my-auto rounded-xl aspect-square w-[60px] max-w-[60px] max-h-[60px]"
                                                             />
-                                                            <h3
+                                                            <p
                                                                 data-layername="təhlukəsizlikKameralari"
                                                                 className="self-stretch my-auto"
                                                             >
                                                                 {product.name}
-                                                            </h3>
+                                                            </p>
                                                         </article>
                                                     </Link>
                                                 )

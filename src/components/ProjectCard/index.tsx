@@ -25,9 +25,9 @@ export default function ProjectCard({ data }: { data: Project | undefined }) {
                     src={data?.image}
                 />
                 <div className="flex flex-col px-5 mt-5 w-full">
-                    <div className="self-start font-medium text-black">
+                    <h2 className="self-start font-medium text-black">
                         {data?.title}
-                    </div>
+                    </h2>
                     <div
                         className="mt-2.5 text-[#BDBDC1] line-clamp-2"
                         dangerouslySetInnerHTML={{

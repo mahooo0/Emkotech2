@@ -162,12 +162,12 @@ const Contact = ({ contactsData, translationsData, meta }: ContactProps) => {
                                 <div className="flex lg:gap-[111px] gap-5 max-md:flex-col">
                                     <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
                                         <div className="flex flex-col mt-1 text-white max-md:mt-10 max-md:max-w-full">
-                                            <h1 className="text-4xl font-semibold max-md:max-w-full">
+                                            <p className="text-4xl font-semibold max-md:max-w-full">
                                                 {
                                                     translationsData?.data
                                                         ?.Bizimlə_əlaqə
                                                 }
-                                            </h1>
+                                            </p>
                                             <div className="flex flex-col mt-7 gap-3 w-full text-base max-md:max-w-full">
                                                 {contactsData?.data?.map(
                                                     (contact) => (

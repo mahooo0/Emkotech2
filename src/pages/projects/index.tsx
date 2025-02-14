@@ -94,9 +94,9 @@ export default function Projects({
                     />
                     <section className="flex flex-col text-black lg:px-[100px] md:px-[60px] px-[30px] ">
                         <div className="flex flex-col rounded-2xl mt-[24px]">
-                            <h2 className="self-center text-5xl text-black max-md:text-4xl">
+                            <h1 className="self-center text-5xl text-black max-md:text-4xl">
                                 {translations?.Layihələr}
-                            </h2>
+                            </h1>
                             <div className="grid lg:grid-cols-3 md:grid-cols-2 max-w-[1100px] grid-cols-1 self-center justify-self-center gap-6 mt-6">
                                 {projects
                                     ?.slice(0, showAll ? projects.length : 9)

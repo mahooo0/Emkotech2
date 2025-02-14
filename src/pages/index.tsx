@@ -231,9 +231,9 @@ export default function Home({
                                         key={index}
                                         className="flex flex-col grow shrink justify-center self-stretch my-auto whitespace-nowrap  w-[157px]"
                                     >
-                                        <h3 className="gap-2.5 self-stretch lg:p-2.5 p-0 w-full font-medium max-sm:text-[14px]">
+                                        <p className="gap-2.5 self-stretch lg:p-2.5 p-0 w-full font-medium max-sm:text-[14px]">
                                             {item.statistic}
-                                        </h3>
+                                        </p>
                                         <p className="gap-2.5 self-stretch lg:p-2.5 p-0 mt-2.5 w-full font-semibold max-sm:text-[14px]">
                                             {item.value}
                                         </p>
@@ -370,9 +370,9 @@ export default function Home({
             </section>
             <HomeCategory data={productCategoriesData.data} />
             <section className="flex flex-col rounded-none lg:px-[100px] md:px-[60px] px-[30px] lg:mt-[120px] mt-[60px]">
-                <div className="self-center text-5xl text-black text-wrap  max-md:text-4xl mr-2">
+                <h2 className="self-center text-5xl text-black text-wrap  max-md:text-4xl mr-2">
                     {translationsData?.data?.Müştərilərimiz}
-                </div>
+                </h2>
                 <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 lg:gap-6 gap-3 mt-8 w-full max-md:max-w-full">
                     {customersData.data.map((item: Customer, index: number) => (
                         <div
@@ -409,9 +409,9 @@ export default function Home({
                     }}
                 >
                     <div className="flex overflow-hidden flex-col items-start px-20 py-20 font-medium rounded-2xl bg-black bg-opacity-30 max-md:px-5 max-sm:h-[204px] max-sm:p-0 max-sm:justify-center max-sm:px-[28px] ">
-                        <h4 className="text-5xl text-white max-md:text-4xl max-sm:text-[20px]">
+                        <h2 className="text-5xl text-white max-md:text-4xl max-sm:text-[20px]">
                             {bottomBannerData.data.title}
-                        </h4>
+                        </h2>
                         <div
                             className="mt-1 text-lg text-gray-200 w-[604px] max-md:max-w-full max-sm:text-[14px]"
                             dangerouslySetInnerHTML={{
@@ -429,9 +429,9 @@ export default function Home({
                 </div>
             </section>{' '}
             <section className="ProductSwippenSection flex flex-col rounded-none  lg:mt-[120px] mt-[60px] w-[100%] overflow-hidden">
-                <div className="self-center text-5xl text-black text-wrap  max-md:text-4xl mr-2">
+                <h2 className="self-center text-5xl text-black text-wrap  max-md:text-4xl mr-2">
                     {translationsData.data.Partnyorlar}
-                </div>
+                </h2>
                 <PartnersSlider data={partnersData.data} />
             </section>{' '}
         </>

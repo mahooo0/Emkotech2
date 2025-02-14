@@ -64,9 +64,9 @@ export const NewsSwiper = ({ data }: { data: NewsData[] }) => {
                                 <div className="flex flex-col justify-center p-6 w-full bg-white text-zinc-800">
                                     <div className="flex flex-col w-full">
                                         <div className="flex flex-col w-full">
-                                            <div className="text-xl font-medium leading-snug h-[2.5em] overflow-hidden">
+                                            <h2 className="text-xl font-medium leading-snug h-[2.5em] overflow-hidden">
                                                 {item.title}
-                                            </div>
+                                            </h2>
                                             <div
                                                 className="mt-2 text-sm tracking-wide leading-5 line-clamp-2"
                                                 dangerouslySetInnerHTML={{

@@ -46,16 +46,14 @@ type ApiResponse = {
 };
 
 interface TranslationsData {
-    data: {
-        Məhsullar: string;
-        PopulyarMəhsullar: string;
-        HamısınaBax: string;
-        SifarisEt: string;
-        Name: string;
-        Soyad: string;
-        Əlaqə_nömrəsi: string;
-        Qeyd: string;
-    };
+    Məhsullar: string;
+    PopulyarMəhsullar: string;
+    HamısınaBax: string;
+    SifarisEt: string;
+    Name: string;
+    Soyad: string;
+    Əlaqə_nömrəsi: string;
+    Qeyd: string;
 }
 
 // Server-side data fetching using getServerSideProps
@@ -110,7 +108,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 <BreadcrumbNavigation
                     items={[
                         {
-                            text: `${translationsData?.data?.Məhsullar}`,
+                            text: `${translationsData?.Məhsullar}`,
                             path: `/${language}/${ROUTES.products[language]}`,
                         },
                         {
@@ -130,7 +128,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             )}
             <main>
                 <EssentialCamera
-                    //@ts-ignore
                     translationsData={translationsData}
                     data={productData?.product}
                     anction={() => {
@@ -151,13 +148,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 <section className="mt-[100px]">
                     <div className="w-full flex lg:justify-center md:justify-center justify-start flex-wrap px-[20px]">
                         <h2 className="text-5xl text-black max-md:text-4xl text-nowrap">
-                            {translationsData?.data?.PopulyarMəhsullar}
+                            {translationsData?.PopulyarMəhsullar}
                         </h2>
                         <div className="lg:absolute md:absolute static lg:right-[100px] md:right-[60px] right-[30px] flex h-[48px] items-end">
                             <Link href="/products">
                                 <button className="flex gap-2.5 justify-center items-center self-end text-base font-medium rounded-[35px] text-blue-600 text-opacity-90">
                                     <p className="self-stretch my-auto text-nowrap ">
-                                        {translationsData?.data?.HamısınaBax}
+                                        {translationsData?.HamısınaBax}
                                     </p>
                                     <Image
                                         src="/svg/strelkablue.svg"
@@ -208,7 +205,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                         </svg>
                     </button>
                     <h4 className="text-[36px] font-medium">
-                        {translationsData?.data?.SifarisEt}
+                        {translationsData?.SifarisEt}
                     </h4>
                     <Formik
                         initialValues={{
@@ -276,12 +273,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                                             htmlFor="name"
                                             className="text-[16px] font-medium"
                                         >
-                                            {translationsData?.data?.Name}
+                                            {translationsData?.Name}
                                         </label>
                                         <input
-                                            placeholder={
-                                                translationsData?.data?.Name
-                                            }
+                                            placeholder={translationsData?.Name}
                                             className="h-[55px] max-sm:h-[40px] px-[20px] py-[17px] text-[#6F6F6F] focus:outline-none w-full border-[#CBCAD7] border rounded-lg"
                                             type="text"
                                             name="name"
@@ -295,11 +290,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                                             htmlFor="surname"
                                             className="text-[16px] font-medium"
                                         >
-                                            {translationsData?.data?.Soyad}
+                                            {translationsData?.Soyad}
                                         </label>
                                         <input
                                             placeholder={
-                                                translationsData?.data?.Soyad
+                                                translationsData?.Soyad
                                             }
                                             className="h-[55px] max-sm:h-[40px] px-[20px] py-[17px] text-[#6F6F6F] focus:outline-none w-full border-[#CBCAD7] border rounded-lg"
                                             type="text"
@@ -333,10 +328,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                                             htmlFor="phone"
                                             className="text-[16px] font-medium"
                                         >
-                                            {
-                                                translationsData?.data
-                                                    ?.Əlaqə_nömrəsi
-                                            }
+                                            {translationsData?.Əlaqə_nömrəsi}
                                         </label>
                                         <div className="h-[55px] max-sm:h-[40px] overflow-hidden flex flex-row text-[#6F6F6F] focus:outline-none w-full border-[#CBCAD7] border rounded-lg">
                                             <p className="h-[55px] max-sm:h-[40px] px-[20px] py-[17px] max-sm:py-2">
@@ -364,12 +356,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                                         htmlFor="note"
                                         className="text-[16px] font-medium"
                                     >
-                                        {translationsData?.data?.Qeyd}
+                                        {translationsData?.Qeyd}
                                     </label>
                                     <textarea
-                                        placeholder={
-                                            translationsData?.data?.Qeyd
-                                        }
+                                        placeholder={translationsData?.Qeyd}
                                         className="h-[114px] max-sm:h-[90px] px-[20px] overflow-hidden py-[17px] text-[#6F6F6F] focus:outline-none w-full border-[#CBCAD7] border rounded-lg"
                                         name="note"
                                         onChange={handleChange}
@@ -384,7 +374,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                                 >
                                     {IsLoading
                                         ? 'Loading...'
-                                        : translationsData?.data?.SifarisEt}
+                                        : translationsData?.SifarisEt}
                                 </button>
                             </form>
                         )}

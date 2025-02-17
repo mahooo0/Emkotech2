@@ -47,16 +47,14 @@ type ApiResponse = {
     similars: SimilarProduct[];
 };
 interface TranslationsData {
-    data: {
-        Məhsullar: string;
-        PopulyarMəhsullar: string;
-        HamısınaBax: string;
-        SifarisEt: string;
-        Name: string;
-        Soyad: string;
-        Əlaqə_nömrəsi: string;
-        Qeyd: string;
-    };
+    Məhsullar: string;
+    PopulyarMəhsullar: string;
+    HamısınaBax: string;
+    SifarisEt: string;
+    Name: string;
+    Soyad: string;
+    Əlaqə_nömrəsi: string;
+    Qeyd: string;
 }
 interface Props {
     productData: ApiResponse | null;

@@ -130,6 +130,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             )}
             <main>
                 <EssentialCamera
+                    //@ts-ignore
                     translationsData={translationsData}
                     data={productData?.product}
                     anction={() => {

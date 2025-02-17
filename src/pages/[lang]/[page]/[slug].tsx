@@ -79,18 +79,14 @@ export default function ID(props: Props) {
     const fullUrl = `${baseUrl}${router.asPath}`;
     const { lang, page } = router.query;
     const currentLang = Array.isArray(lang) ? lang[0] : lang;
+    console.log('AAAAAAAA', props);
     if (page === ROUTES.products[currentLang as string]) {
-        console.log('AAAAAAAA', props.productData);
-
         return (
             <>
                 <Head>
                     <title>
-                        {}
                         {props.productData?.product.meta_title === null
-                            ? props.Metas.find(
-                                  (item) => item.type === 'ProductDetail'
-                              )?.['meta-title']
+                            ? props.productData?.product.title
                             : props.productData?.product.meta_title}
                     </title>
                     <meta
@@ -166,14 +162,16 @@ export default function ID(props: Props) {
                     <title>
                         {}
                         {props.productData?.product.meta_title === null
-                            ? props.Metas.find(
-                                  (item) => item.type === 'ProductDetail'
-                              )?.['meta-title']
+                            ? props.project.title
                             : props.project.meta_title}
                     </title>
                     <meta
                         name="description"
-                        content={props.project.meta_description}
+                        content={
+                            props.productData?.product.meta_description === null
+                                ? props.project.title
+                                : props.project.meta_description
+                        }
                     />
                     <meta name="keywords" content={props.project.meta_keys} />
                     <meta property="og:title" content={props.project.title} />
@@ -226,10 +224,18 @@ export default function ID(props: Props) {
                 <Head>
                     <link rel="canonical" href={fullUrl} />
 
-                    <title>{props.newsProps.newsData.meta_title}</title>
+                    <title>
+                        {props.newsProps.newsData.meta_title === null
+                            ? props.newsProps.newsData.title
+                            : props.newsProps.newsData.meta_title}
+                    </title>
                     <meta
                         name="description"
-                        content={props.newsProps.newsData.meta_description}
+                        content={
+                            props.newsProps.newsData.meta_description === null
+                                ? props.newsProps.newsData.short_description
+                                : props.newsProps.newsData.meta_description
+                        }
                     />
                     <meta
                         name="keywords"

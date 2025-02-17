@@ -6,16 +6,14 @@ import { Product, SlideImage } from '@/pages/products/[id]';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
 import FancyboxExample from '../Fancybox';
 interface TranslationsData {
-    data: {
-        Məhsullar: string;
-        PopulyarMəhsullar: string;
-        HamısınaBax: string;
-        SifarisEt: string;
-        Name: string;
-        Soyad: string;
-        Əlaqə_nömrəsi: string;
-        Qeyd: string;
-    };
+    Məhsullar: string;
+    PopulyarMəhsullar: string;
+    HamısınaBax: string;
+    SifarisEt: string;
+    Name: string;
+    Soyad: string;
+    Əlaqə_nömrəsi: string;
+    Qeyd: string;
 } // interface SlideImage {
 //     id: string;
 //     image: string;
@@ -29,6 +27,8 @@ const EssentialCamera: React.FC<{
     const [selectedImage, setSelectedImage] = useState<number>(0);
     const [isopen, setisopen] = useState<boolean>(false);
     const { language } = useLanguage();
+    console.log('translationsData', translationsData);
+
     useQuery({
         queryKey: ['translations', language],
         queryFn: () => getTranslations(language),
@@ -130,7 +130,7 @@ const EssentialCamera: React.FC<{
                         onClick={anction}
                         className="gap-2.5 self-stretch px-2.5 py-4 mt-16 text-lg font-medium text-white whitespace-nowrap rounded-2xl bg-blue-600 bg-opacity-90 min-h-[54px] max-md:mt-10 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200"
                     >
-                        {translationsData?.data?.SifarisEt}
+                        {translationsData?.SifarisEt}
                     </button>
                 </section>
 

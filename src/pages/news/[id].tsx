@@ -26,6 +26,7 @@ export interface NewsIdProps {
         meta_keys: string;
         meta_image: string;
         meta_description: string;
+        short_description: string;
     };
     newsList: NewsData[];
     popularData: NewsItem[];

@@ -6,9 +6,9 @@ import { ROUTES } from '@/services/CONSTANTS';
 const ProductCard = ({ data }: { data: Product }) => {
     const router = useRouter();
     // const { language } = useLanguage();
-    const { lang } = router.query;
+    const { lang = 'az' } = router.query;
     const language = lang ? lang?.toString() : 'az';
-    console.log('data:', data);
+    console.log('ProductCArd:', data);
     return (
         <div
             className="flex flex-col h-full justify-around grow pb-7 w-full hover:border-[#186FE0] border duration-300 bg-white rounded-2xl shadow-[0px_0px_11px_rgba(167,167,167,0.12)] max-md:mt-6 relative "

@@ -8,6 +8,7 @@ import Header from '@/components/Header';
 import NextNProgress from 'nextjs-progressbar'; // Import NextNProgress
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Footer } from '@/components/Footer';
+import useRedirect from '@/components/Hoc/RedirectContext';
 
 export default function App({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
@@ -54,6 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
         setActiveIndex(routeToIndex[path]);
     }, [lang, page]);
     // const activeIndex = routeToIndex[router.pathname] || 0; // Default to 0 if no match
+    useRedirect(); // Apply redirects globally
 
     return (
         <LanguageProvider>

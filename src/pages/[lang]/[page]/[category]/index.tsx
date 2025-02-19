@@ -73,8 +73,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     console.log(meta);
 
     if (page === ROUTES.products[lang]) {
-        // const Logo = await getTopImages(lang);
-
         return {
             props: { Logo },
         };

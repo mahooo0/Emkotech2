@@ -18,6 +18,7 @@ import Image from 'next/image';
 import { ROUTES } from '@/services/CONSTANTS';
 import { MetaItem } from '@/types';
 import Head from 'next/head';
+import CatecoryArticle from '@/components/CategoryArticle';
 
 // interface Product {
 //     id: number;
@@ -94,6 +95,7 @@ export default function Products() {
             en: string;
             ru: string;
         };
+        description: string;
     }
     type ApiResponse<T> = {
         data: T[];
@@ -359,6 +361,15 @@ export default function Products() {
                         >
                             {translationsData?.data?.Məhsullar}
                         </h1>
+                        <CatecoryArticle
+                            productCategoriesData={productCategoriesData?.data}
+                            selectedCategory={selectedCategory}
+                            productSubCategoriesData={
+                                productSubCategoriesData?.data
+                            }
+                            selectedSubCategory={selectedSubCategory}
+                        />
+
                         <section
                             data-layername="filter"
                             className="flex flex-wrap lg:gap-6 md:gap-6 gap-3 items-center px-28 py-8 mt-6 w-full text-base bg-white max-md:px-5 max-md:max-w-full"

@@ -18,12 +18,11 @@ const useRedirect = () => {
                 console.log('currentPath', currentPath);
 
                 const redirectEntry = data.find(
-                    (entry: { original_url: string }) =>
-                        entry.original_url === currentPath
+                    (entry: { from: string }) => entry.from === currentPath
                 );
 
                 if (redirectEntry) {
-                    router.push(`${redirectEntry.redirect_url}`);
+                    router.push(`${redirectEntry.to}`);
                 }
             } catch (error) {
                 console.error('Redirect Fetch Error:', error);

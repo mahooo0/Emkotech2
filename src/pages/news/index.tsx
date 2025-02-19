@@ -123,7 +123,7 @@ export default function Nevs({
                                     key={i}
                                     href={`/${language}/${
                                         ROUTES.news[language]
-                                    }/${
+                                    }/detail/${
                                         item.slug[
                                             (language as 'az') || 'en' || 'ru'
                                         ]

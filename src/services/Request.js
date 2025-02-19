@@ -1,4 +1,4 @@
-import { debug } from '@/pages/[lang]/[page]/[slug]';
+import { debug } from '@/pages/[lang]/[page]/detail/[slug]';
 import axios from 'axios';
 
 export const getTopBanner = async (language) => {

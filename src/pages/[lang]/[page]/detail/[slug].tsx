@@ -38,6 +38,8 @@ export type Product = {
     discounted_price: number;
     item_number: string;
     slide_images: SlideImage[];
+    category_slug: { az: string; en: string; ru: string };
+    subcategory_slug: { az: string; en: string; ru: string };
 };
 
 type SimilarProduct = Product;

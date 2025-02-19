@@ -223,7 +223,7 @@ const FlagDropdown: React.FC = () => {
             document.removeEventListener('mousedown', handleOutsideClick);
     }, []);
     const router = useRouter();
-    const { lang, page, slug } = router.query;
+    const { lang, page, category, subcategory, slug } = router.query;
     const handleLanguageChange = (Lang: 'az' | 'en' | 'ru') => {
         if (lang === undefined || page === undefined) {
             router.push(`/${Lang}${window.location.search}`);
@@ -232,16 +232,19 @@ const FlagDropdown: React.FC = () => {
         }
 
         let path = `/${lang}/${page}`;
-        if (slug) {
-            path += `/${slug}`;
+        if (category) {
+            // console.log('category', category);
+            path += `/${category}`;
+            if (subcategory) {
+                path += `/${subcategory}`;
+            }
+        } else if (slug) {
+            // console.log('slug', slug);
+            path += `/detail/${slug}`;
+        } else {
+            // console.log('page', page);
         }
-
-        // Preserve the query parameters
-        const queryParams = window.location.search; // Get the current query string
-        const RoutePath = updateLangAndRoute(path, Lang) + queryParams;
-
-        console.log('path:', RoutePath);
-
+        const RoutePath = updateLangAndRoute(path, Lang);
         router.push(RoutePath); // Navigate to the new path
         setLanguage(Lang);
 

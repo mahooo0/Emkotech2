@@ -36,6 +36,8 @@ export type Product = {
     discounted_price: number;
     item_number: string;
     slide_images: SlideImage[];
+    category_slug: { az: string; en: string; ru: string };
+    subcategory_slug: { az: string; en: string; ru: string };
 };
 
 type SimilarProduct = Product;
@@ -102,6 +104,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     if (!productData?.product?.title || !translationsData) {
         return <div>Loading...</div>;
     }
+    console.log('productData11', productData);
+
     return (
         <div className="mt-[94px]">
             {productData?.product?.title && (
@@ -113,11 +117,23 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                         },
                         {
                             text: productData?.product.category_name,
-                            path: `/${language}/${ROUTES.products[language]}?category=${productData?.product.category_id}`,
+                            path: `/${language}/${ROUTES.products[language]}/${
+                                productData?.product.category_slug[
+                                    lang as 'az' | 'en' | 'ru'
+                                ]
+                            }`,
                         },
                         {
                             text: productData?.product?.subcategory_name,
-                            path: `/${language}/${ROUTES.products[language]}?category=${productData?.product.category_id}&sub_category=${productData?.product?.subcategory_id}`,
+                            path: `/${language}/${ROUTES.products[language]}/${
+                                productData?.product.category_slug[
+                                    lang as 'az' | 'en' | 'ru'
+                                ]
+                            }/${
+                                productData?.product.subcategory_slug[
+                                    lang as 'az' | 'en' | 'ru'
+                                ]
+                            }`,
                         },
                         {
                             text: productData?.product?.title,

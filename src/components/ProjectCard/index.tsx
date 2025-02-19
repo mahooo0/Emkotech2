@@ -10,7 +10,7 @@ export default function ProjectCard({ data }: { data: Project | undefined }) {
     const language = lang ? lang?.toString() : 'az';
     return (
         <Link
-            href={`/${language}/${ROUTES.project[language]}/${
+            href={`/${language}/${ROUTES.project[language]}/detail/${
                 data?.slug[(language as 'az') || 'en' || 'ru']
             }`}
         >

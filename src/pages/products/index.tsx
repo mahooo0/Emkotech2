@@ -79,11 +79,21 @@ export default function Products() {
         description: string;
         image: string; // URL
         subcategories: Subcategory[];
+        slug: {
+            az: string;
+            en: string;
+            ru: string;
+        };
     };
     interface Subcategory {
         id: number;
         name: string;
         category_id: number;
+        slug: {
+            az: string;
+            en: string;
+            ru: string;
+        };
     }
     type ApiResponse<T> = {
         data: T[];
@@ -118,23 +128,42 @@ export default function Products() {
         // console.log(event.target.value);
         setSearchTerm(event.target.value);
     };
-    const { category, sub_category, pagination, search } = router.query;
+    const { category, subcategory, pagination, search } = router.query;
 
     useEffect(() => {
         if (category) {
-            // console.log('Category from URL:', category);
-            setSelectedCategory(Number(category));
+            console.log('categoryAAAA', category);
+            const CurrentCATEGORY = productCategoriesData?.data.find(
+                (item) =>
+                    item.slug[language as keyof typeof item.slug] === category
+            );
+            // console.log('CurrentCATEGORY', CurrentCATEGORY);
+            setSelectedCategory(Number(CurrentCATEGORY?.id));
         }
+        if (subcategory) {
+            console.log('categoryAAAA', category);
+            const CurrentCATEGORY = productSubCategoriesData?.data.find(
+                (item) =>
+                    item.slug[language as keyof typeof item.slug] ===
+                    subcategory
+            );
+            console.log('CurrentCATEGORY', CurrentCATEGORY);
+            setSelectedSubCategory(Number(CurrentCATEGORY?.id));
+        }
+        // if (category) {
+        //     // console.log('Category from URL:', category);
+        //     setSelectedCategory(Number(category));
+        // }
         if (Number(pagination) > 0) {
             setPage(Number(pagination));
         }
-        if (sub_category) {
-            setSelectedSubCategory(Number(sub_category));
-        }
+        // if (subcategory) {
+        //     setSelectedSubCategory(Number(subcategory));
+        // }
         if (search) {
             setSelectedSort(search.toString());
         }
-    }, [category, sub_category, pagination, search]);
+    }, [category, subcategory, pagination, search]);
     useEffect(() => {
         if (selectedCategory) {
             console.log(
@@ -230,9 +259,7 @@ export default function Products() {
                         items={[
                             {
                                 text: `${translationsData?.data?.Məhsullar}`,
-                                path: `/${language}/${
-                                    ROUTES.products[language]
-                                }?category=${0}&search=no`,
+                                path: `/${language}/${ROUTES.products[language]}`,
                             },
                         ]}
                     />
@@ -241,9 +268,7 @@ export default function Products() {
                         items={[
                             {
                                 text: `${translationsData?.data?.Məhsullar}`,
-                                path: `/${language}/${
-                                    ROUTES.products[language]
-                                }?category=${0}&sort=no&search=no`,
+                                path: `/${language}/${ROUTES.products[language]}`,
                             },
                             {
                                 text: `${
@@ -253,7 +278,11 @@ export default function Products() {
                                 }`,
                                 path: `/${language}/${
                                     ROUTES.products[language]
-                                }?category=${selectedCategory}&sub_category=${0}`,
+                                }/${
+                                    productCategoriesData?.data.find(
+                                        (item) => item.id === selectedCategory
+                                    )?.slug[language as 'az' | 'en' | 'ru']
+                                }`,
                             },
                         ]}
                     />
@@ -262,9 +291,7 @@ export default function Products() {
                         items={[
                             {
                                 text: `${translationsData?.data?.Məhsullar}`,
-                                path: `/${language}/${
-                                    ROUTES.products[language]
-                                }?category=${0}&sub_category=${0}&search=no`,
+                                path: `/${language}/${ROUTES.products[language]}`,
                             },
                             {
                                 text: `${
@@ -274,7 +301,11 @@ export default function Products() {
                                 }`,
                                 path: `/${language}/${
                                     ROUTES.products[language]
-                                }?category=${selectedCategory}&sub_category=${0}`,
+                                }/${
+                                    productCategoriesData?.data.find(
+                                        (item) => item.id === selectedCategory
+                                    )?.slug[language as 'az' | 'en' | 'ru']
+                                }`,
                             },
                             {
                                 text: `${
@@ -283,7 +314,18 @@ export default function Products() {
                                             item.id === selectedSubCategory
                                     )?.name
                                 }`,
-                                path: `/${language}/${ROUTES.products[language]}?category=${selectedCategory}&sub_category=${selectedSubCategory}`,
+                                path: `/${language}/${
+                                    ROUTES.products[language]
+                                }/${
+                                    productCategoriesData?.data.find(
+                                        (item) => item.id === selectedCategory
+                                    )?.slug[language as 'az' | 'en' | 'ru']
+                                }/${
+                                    productSubCategoriesData?.data.find(
+                                        (item) =>
+                                            item.id === selectedSubCategory
+                                    )?.slug[language as 'az' | 'en' | 'ru']
+                                }`,
                             },
                         ]}
                     />
@@ -325,14 +367,19 @@ export default function Products() {
                                 <select
                                     data-layername="əsasSəhifə"
                                     className="w-full h-full bg-white select-none outline-none border-none px-6"
-                                    value={selectedCategory}
+                                    value={
+                                        productCategoriesData?.data.find(
+                                            (item) =>
+                                                item.id === selectedCategory
+                                        )?.slug[language as 'az' | 'en' | 'ru']
+                                    }
                                     onChange={(e) => {
-                                        setSelectedCategory(
-                                            Number(e.target.value)
-                                        );
-                                        setSelectedSubCategory(0);
+                                        // setSelectedCategory(
+                                        //     Number(e.target.value)
+                                        // );
+                                        // setSelectedSubCategory(0);
                                         router.push(
-                                            `/${language}/${ROUTES.products[language]}?category=${e.target.value}&search=${debouncedSearchTerm}&sort=${selectedSort}&pagination=1`
+                                            `/${language}/${ROUTES.products[language]}/${e.target.value}?search=${debouncedSearchTerm}&sort=${selectedSort}&pagination=1`
                                         );
                                     }}
                                 >
@@ -347,7 +394,11 @@ export default function Products() {
                                             <option
                                                 key={index}
                                                 data-layername="kategoriyalar"
-                                                value={item.id}
+                                                value={
+                                                    item.slug[
+                                                        language as keyof typeof item.slug
+                                                    ]
+                                                }
                                             >
                                                 {item.title}
                                             </option>
@@ -360,13 +411,33 @@ export default function Products() {
                                 <select
                                     data-layername="əsasSəhifə"
                                     className="w-full h-full bg-white select-none outline-none border-none px-6"
-                                    value={selectedSubCategory}
+                                    value={
+                                        productSubCategoriesData?.data.find(
+                                            (item) =>
+                                                item.id === selectedSubCategory
+                                        )?.slug[language as 'az' | 'en' | 'ru']
+                                    }
                                     onChange={(e) => {
                                         // setSelectedSubCategory(
                                         //     Number(e.target.value)
                                         // )
                                         router.push(
-                                            `/${language}/${ROUTES.products[language]}?sub_category=${e.target.value}&category=${selectedCategory} &search=${debouncedSearchTerm}&sort=${selectedSort}&pagination=1`
+                                            `/${language}/${
+                                                ROUTES.products[language]
+                                            }/${
+                                                productCategoriesData?.data.find(
+                                                    (item) =>
+                                                        item.id ===
+                                                        selectedCategory
+                                                )?.slug[
+                                                    language as
+                                                        | 'az'
+                                                        | 'en'
+                                                        | 'ru'
+                                                ]
+                                            }/${
+                                                e.target.value
+                                            }?search=${debouncedSearchTerm}&sort=${selectedSort}&pagination=1`
                                         );
                                     }}
                                 >
@@ -386,7 +457,14 @@ export default function Products() {
                                                       <option
                                                           key={index}
                                                           data-layername="kategoriyalar"
-                                                          value={item.id}
+                                                          value={
+                                                              item.slug[
+                                                                  language as
+                                                                      | 'az'
+                                                                      | 'en'
+                                                                      | 'ru'
+                                                              ]
+                                                          }
                                                       >
                                                           {item.name}
                                                       </option>
@@ -400,7 +478,14 @@ export default function Products() {
                                                       <option
                                                           key={index}
                                                           data-layername="kategoriyalar"
-                                                          value={item.id}
+                                                          value={
+                                                              item.slug[
+                                                                  language as
+                                                                      | 'az'
+                                                                      | 'en'
+                                                                      | 'ru'
+                                                              ]
+                                                          }
                                                       >
                                                           {item.name}
                                                       </option>
@@ -426,7 +511,33 @@ export default function Products() {
                                     onChange={(e) => {
                                         setSelectedSort(e.target.value);
                                         router.push(
-                                            `/${language}/${ROUTES.products[language]}?sub_category=${selectedSubCategory}&category=${selectedCategory} &search=${e.target.value}&sort=${selectedSort}&pagination=1`
+                                            `/${language}/${
+                                                ROUTES.products[language]
+                                            }/${
+                                                productCategoriesData?.data.find(
+                                                    (item) =>
+                                                        item.id ===
+                                                        selectedCategory
+                                                )?.slug[
+                                                    language as
+                                                        | 'az'
+                                                        | 'en'
+                                                        | 'ru'
+                                                ]
+                                            }/${
+                                                productSubCategoriesData?.data.find(
+                                                    (item) =>
+                                                        item.id ===
+                                                        selectedSubCategory
+                                                )?.slug[
+                                                    language as
+                                                        | 'az'
+                                                        | 'en'
+                                                        | 'ru'
+                                                ]
+                                            }?search=${
+                                                e.target.value
+                                            }&sort=${selectedSort}&pagination=1`
                                         );
                                     }}
                                 >
@@ -531,8 +642,20 @@ export default function Products() {
                         currentPage={page}
                         onPageChange={(page) => {
                             // setPage(page);
+                            // router.push(
+                            //     `/${language}/${ROUTES.products[language]}?category=${category}&sub_category=${subcategory}&search=${debouncedSearchTerm}&sort=${selectedSort}&pagination=${page}`
+                            // );
                             router.push(
-                                `/${language}/${ROUTES.products[language]}?category=${category}&sub_category=${sub_category}&search=${debouncedSearchTerm}&sort=${selectedSort}&pagination=${page}`
+                                `/${language}/${ROUTES.products[language]}/${
+                                    productCategoriesData?.data.find(
+                                        (item) => item.id === selectedCategory
+                                    )?.slug[language as 'az' | 'en' | 'ru']
+                                }/${
+                                    productSubCategoriesData?.data.find(
+                                        (item) =>
+                                            item.id === selectedSubCategory
+                                    )?.slug[language as 'az' | 'en' | 'ru']
+                                }?search=${debouncedSearchTerm}&sort=${selectedSort}&pagination=${page}`
                             );
                         }}
                     />

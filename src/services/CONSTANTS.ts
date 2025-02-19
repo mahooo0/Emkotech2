@@ -9,26 +9,26 @@ export const ROUTES: Routes = {
     about: {
         az: 'haqimizda',
         en: 'about',
-        ru: 'пронас',
+        ru: 'pronas',
     },
     products: {
-        az: 'məhsullar',
+        az: 'mehsullar',
         en: 'products',
-        ru: 'продукты',
+        ru: 'produkti',
     },
     project: {
-        az: 'layihələr',
+        az: 'layiheler',
         en: 'projects',
-        ru: 'проекты',
+        ru: 'proekti',
     },
     news: {
         az: 'xeberler',
         en: 'news',
-        ru: 'новости',
+        ru: 'novosti',
     },
     contact: {
-        az: 'əlaqə',
+        az: 'elaqe',
         en: 'contact',
-        ru: 'контакт',
+        ru: 'kontakti',
     },
 };

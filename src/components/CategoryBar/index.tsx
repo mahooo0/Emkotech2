@@ -8,11 +8,21 @@ interface subcategories {
     name: string;
     category_id: string;
     image: string;
+    slug: {
+        az: string;
+        en: string;
+        ru: string;
+    };
 }
 interface Category {
     id: string;
     title: string;
     subcategories: subcategories[];
+    slug: {
+        az: string;
+        en: string;
+        ru: string;
+    };
 }
 
 interface Product {
@@ -42,7 +52,7 @@ const CategoryBAr = ({ categories, isopen, isLoading }: CategoryBarProps) => {
         }
     }, [categories]); // This effect will run when the 'categories' data changes
 
-    // console.log(productsLoading);
+    console.log(' categories?.data', categories?.data);
     // console.log(products);
 
     const router = useRouter();
@@ -115,8 +125,25 @@ const CategoryBAr = ({ categories, isopen, isLoading }: CategoryBarProps) => {
                                         categories.data.map(
                                             (category: Category, i: number) => (
                                                 <Link
+                                                    onClick={() => {
+                                                        localStorage.setItem(
+                                                            'categorySlug',
+                                                            JSON.stringify(
+                                                                category?.slug
+                                                            )
+                                                        );
+                                                    }}
                                                     key={i}
-                                                    href={`/${language}/${ROUTES.products[language]}?category=${category.id}`}
+                                                    href={`/${language}/${
+                                                        ROUTES.products[
+                                                            language
+                                                        ]
+                                                    }/${
+                                                        category?.slug[
+                                                            language as keyof typeof category.slug
+                                                        ]
+                                                    } 
+                                                                `}
                                                 >
                                                     {' '}
                                                     <button
@@ -189,37 +216,90 @@ const CategoryBAr = ({ categories, isopen, isLoading }: CategoryBarProps) => {
                                                 (
                                                     product: subcategories,
                                                     i: number
-                                                ) => (
-                                                    <Link
-                                                        key={i}
-                                                        className="flex flex-auto gap-6 items-center p-3 rounded-2xl bg-slate-50 lg:w-[45%] md:w-[45%] w-full max-w-[390px] max-h-[83px] cursor-pointer hover:bg-slate-100 transition-colors"
-                                                        href={`/${language}/${ROUTES.products[language]}?category=${product.category_id}&sub_category=${product.id}`}
-                                                    >
-                                                        {' '}
-                                                        <article
-                                                            key={product.id}
-                                                            data-layername="modalContent"
+                                                ) => {
+                                                    const currentCAtegory =
+                                                        categories?.data?.find(
+                                                            (item) =>
+                                                                item.id ===
+                                                                selectedCategory
+                                                        );
+                                                    console.log(
+                                                        'SubCAt:',
+                                                        currentCAtegory
+                                                    );
+                                                    return (
+                                                        <Link
+                                                            key={i}
+                                                            onClick={() => {
+                                                                localStorage.setItem(
+                                                                    'categorySlug',
+                                                                    JSON.stringify(
+                                                                        currentCAtegory?.slug
+                                                                    )
+                                                                );
+                                                                localStorage.setItem(
+                                                                    'categoryId',
+                                                                    JSON.stringify(
+                                                                        currentCAtegory?.id
+                                                                    )
+                                                                );
+                                                                localStorage.setItem(
+                                                                    'SubCategoryId',
+                                                                    JSON.stringify(
+                                                                        product?.id
+                                                                    )
+                                                                );
+                                                                localStorage.setItem(
+                                                                    'SubCategorySlug',
+                                                                    JSON.stringify(
+                                                                        product?.slug
+                                                                    )
+                                                                );
+                                                            }}
                                                             className="flex flex-auto gap-6 items-center p-3 rounded-2xl bg-slate-50 lg:w-[45%] md:w-[45%] w-full max-w-[390px] max-h-[83px] cursor-pointer hover:bg-slate-100 transition-colors"
+                                                            href={`/${language}/${
+                                                                ROUTES.products[
+                                                                    language
+                                                                ]
+                                                            }/${
+                                                                currentCAtegory
+                                                                    ?.slug[
+                                                                    language as keyof typeof product.slug
+                                                                ]
+                                                            }/${
+                                                                product?.slug[
+                                                                    language as keyof typeof product.slug
+                                                                ]
+                                                            }`}
                                                         >
-                                                            <img
-                                                                loading="lazy"
-                                                                src={
-                                                                    product.image
-                                                                }
-                                                                alt={
-                                                                    product.name
-                                                                }
-                                                                className="object-contain shrink-0 self-stretch my-auto rounded-xl aspect-square w-[60px] max-w-[60px] max-h-[60px]"
-                                                            />
-                                                            <p
-                                                                data-layername="təhlukəsizlikKameralari"
-                                                                className="self-stretch my-auto"
+                                                            {' '}
+                                                            <article
+                                                                key={product.id}
+                                                                data-layername="modalContent"
+                                                                className="flex flex-auto gap-6 items-center p-3 rounded-2xl bg-slate-50 lg:w-[45%] md:w-[45%] w-full max-w-[390px] max-h-[83px] cursor-pointer hover:bg-slate-100 transition-colors"
                                                             >
-                                                                {product.name}
-                                                            </p>
-                                                        </article>
-                                                    </Link>
-                                                )
+                                                                <img
+                                                                    loading="lazy"
+                                                                    src={
+                                                                        product.image
+                                                                    }
+                                                                    alt={
+                                                                        product.name
+                                                                    }
+                                                                    className="object-contain shrink-0 self-stretch my-auto rounded-xl aspect-square w-[60px] max-w-[60px] max-h-[60px]"
+                                                                />
+                                                                <p
+                                                                    data-layername="təhlukəsizlikKameralari"
+                                                                    className="self-stretch my-auto"
+                                                                >
+                                                                    {
+                                                                        product.name
+                                                                    }
+                                                                </p>
+                                                            </article>
+                                                        </Link>
+                                                    );
+                                                }
                                             )
                                     )}
                                 </div>

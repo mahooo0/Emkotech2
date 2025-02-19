@@ -12,6 +12,7 @@ type Subcategory = {
     name: string;
     image: string;
     category_id: number;
+    slug: { az: string; en: string; ru: string };
 };
 
 export type Category = {
@@ -22,6 +23,7 @@ export type Category = {
     subcategories: Subcategory[];
     black_icon?: string;
     white_icon?: string;
+    slug: { az: string; en: string; ru: string };
 };
 
 export default function HomeCategory({ data }: { data: Category[] }) {
@@ -30,8 +32,9 @@ export default function HomeCategory({ data }: { data: Category[] }) {
     const [currentCategory, setCurrentCategory] = useState(0);
     const swiperRef = useRef<SwiperCore | null>(null);
     const router = useRouter();
+    console.log('CAtegorySerction,data', data);
 
-    const { lang } = router.query;
+    const { lang = 'az' } = router.query;
     useEffect(() => {
         if (data.length) {
             setCurrentCategory(data[0].id);
@@ -177,7 +180,10 @@ export default function HomeCategory({ data }: { data: Category[] }) {
                     ?.subcategories.map((item: Subcategory) => (
                         <Link
                             key={item.id}
-                            href={`/${language}/${ROUTES.products[language]}?category=${currentCategory}&sub_category=${item.id}`}
+                            href={`/${language}/${ROUTES.products[language]}/${
+                                data.find((item) => item.id === currentCategory)
+                                    ?.slug[lang as 'az' | 'en' | 'ru']
+                            }/${item.slug[lang as 'az' | 'en' | 'ru']}`}
                         >
                             <div className="w-full flex flex-col items-center gap-4 justify-center h-[130px] bg-[#EEEEEE] rounded-[18px]">
                                 <img

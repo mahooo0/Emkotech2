@@ -67,12 +67,14 @@ export function Aside({ data }: { data: NewsItem[] }) {
             <div className="flex flex-col px-7 pt-4 pb-14 mt-6  text-base tracking-normal bg-white rounded-lg shadow-[0px_0px_8px_rgba(0,0,0,0.084)]  w-full h-fit">
                 <div className="flex gap-5 items-start text-neutral-900">
                     <div className=" text-lg tracking-normal leading-[58px] w-full text-center">
-                        {translationsData?.data?.Populyar_Məhsullar}
+                        {translationsData?.data?.Populyar_xeberler}
                     </div>
                 </div>
                 {data?.map((item: NewsItem, i: number) => (
                     <Link
-                        href={`/${language}/${ROUTES.news[language]}/${item.slug}?id=${item.id}`}
+                        href={`/${language}/${ROUTES.news[language]}/detail/${
+                            item.slug[language as 'az' | 'en' | 'ru']
+                        }`}
                         key={i}
                     >
                         <div className="flex gap-5  mt-3" key={i}>

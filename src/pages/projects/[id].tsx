@@ -58,9 +58,9 @@ export default function ProjectsId({
                 />
                 <section className="flex flex-col text-black lg:px-[100px] md:px-[60px] px-[30px]">
                     <div className="flex flex-col rounded-2xl mt-[24px]">
-                        <h1 className="self-center text-5xl text-black max-md:text-4xl">
+                        <span className="self-center text-5xl text-black max-md:text-4xl">
                             {project.title}
-                        </h1>
+                        </span>
                         <div className="flex flex-col rounded-2xl">
                             <div className="lg:mt-6 mt-0 max-md:-mr-0.5 max-md:max-w-full">
                                 <div className="flex gap-5 max-md:flex-col">

@@ -45,9 +45,11 @@ export const NewsSwiper = ({ data }: { data: NewsData[] }) => {
                                     JSON.stringify(item.slug)
                                 );
                             }}
-                            href={`/${language}/${ROUTES.news[language]}/${
+                            href={`/${language}/${
+                                ROUTES.news[language]
+                            }/detail/${
                                 item.slug[(language as 'az') || 'en' || 'ru']
-                            }?id=${item.id}`}
+                            }`}
                         >
                             {' '}
                             <div
@@ -64,9 +66,9 @@ export const NewsSwiper = ({ data }: { data: NewsData[] }) => {
                                 <div className="flex flex-col justify-center p-6 w-full bg-white text-zinc-800">
                                     <div className="flex flex-col w-full">
                                         <div className="flex flex-col w-full">
-                                            <h2 className="text-xl font-medium leading-snug h-[2.5em] overflow-hidden">
+                                            <span className="text-xl font-medium leading-snug h-[2.5em] overflow-hidden">
                                                 {item.title}
-                                            </h2>
+                                            </span>
                                             <div
                                                 className="mt-2 text-sm tracking-wide leading-5 line-clamp-2"
                                                 dangerouslySetInnerHTML={{

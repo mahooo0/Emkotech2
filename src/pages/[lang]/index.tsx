@@ -135,18 +135,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     } catch (error) {
         console.error('Error fetching data:', error);
         return {
-            props: {
-                topBannerData: null,
-                statisticsData: [],
-                productsData: [],
-                customersData: [],
-                bottomBannerData: null,
-                partnersData: null,
-                productCategoriesData: [],
-                translationsData: null,
-                Meta: [],
-                Logo: {},
-            },
+            notFound: true,
         };
     }
 }

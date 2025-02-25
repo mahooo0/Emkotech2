@@ -670,6 +670,13 @@ export default function Products() {
                             );
                         }}
                     />
+                    <div className="mt-3.5 lg:text-lg   md:text-lg text-[12px] text-black max-md:max-w-full max-sm:text-[16px] lg:px-[100px] md:px-[60px] px-[30px]">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing
+                        elit. Reprehenderit, totam ipsum. Vero, id velit ipsam
+                        porro explicabo accusamus provident voluptatem aperiam
+                        officia commodi molestias aliquid dignissimos rerum
+                        obcaecati, ex non.
+                    </div>
                 </main>
                 {/* <Footer /> */}
             </div>

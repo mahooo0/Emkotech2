@@ -1,8 +1,10 @@
+// import useRedirect from '@/components/Hoc/RedirectContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 export default function notfound() {
+    // useRedirect();
     return (
         <div className=" text-black lg:mt-[69px]  mt-[75.68px]">
             <Image

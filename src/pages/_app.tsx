@@ -9,6 +9,7 @@ import NextNProgress from 'nextjs-progressbar'; // Import NextNProgress
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Footer } from '@/components/Footer';
 import useRedirect from '@/components/Hoc/RedirectContext';
+import { RedirectProvider } from '@/context/RedirectProvider';
 
 export default function App({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
@@ -60,20 +61,22 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <LanguageProvider>
             <QueryClientProvider client={queryClient}>
-                {/* Progress bar component */}
+                <RedirectProvider>
+                    {/* Progress bar component */}
 
-                <NextNProgress
-                    color="#29d" // Customize the color
-                    startPosition={0.3} // Initial starting position
-                    stopDelayMs={200} // Delay in ms before stopping
-                    height={5} // Height of the progress bar
-                    showOnShallow={true} // Show progress for shallow routing
-                />
-                <Header activeindex={activeIndex} />
-                <Component {...pageProps} />
-                <Footer />
+                    <NextNProgress
+                        color="#29d" // Customize the color
+                        startPosition={0.3} // Initial starting position
+                        stopDelayMs={200} // Delay in ms before stopping
+                        height={5} // Height of the progress bar
+                        showOnShallow={true} // Show progress for shallow routing
+                    />
+                    <Header activeindex={activeIndex} />
+                    <Component {...pageProps} />
+                    <Footer />
 
-                <ReactQueryDevtools initialIsOpen={false} />
+                    <ReactQueryDevtools initialIsOpen={false} />
+                </RedirectProvider>
             </QueryClientProvider>
         </LanguageProvider>
     );

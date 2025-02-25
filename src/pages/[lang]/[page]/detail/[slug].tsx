@@ -163,25 +163,25 @@ export default function ID(props: Props) {
                         {}
                         {props.productData?.product.meta_title === null
                             ? props.project.title
-                            : props.project.meta_title}
+                            : props.project?.meta_title}
                     </title>
                     <meta
                         name="description"
                         content={
                             props.productData?.product.meta_description === null
                                 ? props.project.title
-                                : props.project.meta_description
+                                : props.project?.meta_description
                         }
                     />
-                    <meta name="keywords" content={props.project.meta_keys} />
-                    <meta property="og:title" content={props.project.title} />
+                    <meta name="keywords" content={props.project?.meta_keys} />
+                    <meta property="og:title" content={props.project?.title} />
                     <meta
                         property="og:description"
-                        content={props.project.meta_description}
+                        content={props.project?.meta_description}
                     />
                     <meta
                         property="og:image"
-                        content={props.project.meta_image}
+                        content={props.project?.meta_image}
                     />
                     <meta property="og:type" content="website" />
                     <meta property="og:url" content={fullUrl} />
@@ -192,12 +192,12 @@ export default function ID(props: Props) {
                     <meta name="twitter:card" content="summary" />
                     <meta
                         name="twitter:description"
-                        content={props.project.meta_description}
+                        content={props.project?.meta_description}
                     />
                     <meta name="twitter:title" content={props.project.title} />
                     <meta
                         name="twitter:image"
-                        content={props.project.meta_image}
+                        content={props.project?.meta_image}
                     />
                     <meta name="twitter:site" content="@emkotech" />
                     <meta name="twitter:creator" content="@emkotech" />
@@ -345,9 +345,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             console.error('Error fetching data:', error);
             return {
                 props: {
-                    productData: null,
-                    translationsData: null,
-                    Logo: {},
+                    notFound: true,
                 },
             };
         }
@@ -381,10 +379,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             console.error('Error fetching data:', error);
             return {
                 props: {
-                    project: null,
-                    translations: {},
-                    relatedProjects: [],
-                    Logo: {},
+                    notFound: true,
                 },
             };
         }

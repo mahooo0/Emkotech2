@@ -53,6 +53,8 @@ const DinamicPagesbylanguages = (props: Props) => {
     // Ensure lang is a string
     const currentLang = Array.isArray(lang) ? lang[0] : lang;
 
+    // useRedirect();
+
     // Ensure page matches the expected route
     if (page === ROUTES.about[currentLang as string]) {
         return (
@@ -93,6 +95,8 @@ const DinamicPagesbylanguages = (props: Props) => {
         );
     }
     if (page === ROUTES.project[currentLang as string]) {
+        console.log('page nedir', page);
+        console.log('page nedir', ROUTES.about[currentLang as string]);
         return (
             <>
                 <Head>
@@ -167,6 +171,26 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { page, lang } = context.params as { page: string; lang: string };
     const meta = await getTopMeta(lang);
     const Logo = await getTopImages(lang);
+
+    const res = await fetch('https://emkotech.epart.az/api/redirects');
+    const { data } = await res.json();
+
+    if (!data || !Array.isArray(data)) return;
+    if (data && Array.isArray(data)) {
+        const redirectEntry = data.find(
+            (entry) => entry.from === `/${lang}/${page}`
+        );
+
+        if (redirectEntry) {
+            return {
+                redirect: {
+                    destination: redirectEntry.to,
+                    permanent: false,
+                },
+            };
+        }
+    }
+
     if (page === ROUTES.about[lang]) {
         try {
             const aboutData = await getAbout(lang);
@@ -194,11 +218,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             console.error('Error fetching data:', error);
             return {
                 props: {
-                    aboutData: null,
-                    aboutBannerData: null,
-                    translationsData: null,
-                    meta: [],
-                    Logo: {},
+                    notFound: true,
                 },
             };
         }
@@ -229,9 +249,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             console.error('Error fetching data:', error);
             return {
                 props: {
-                    projects: [],
-                    translations: {},
-                    meta: [],
+                    notFound: true,
                 },
             };
         }
@@ -265,9 +283,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             console.error('Error fetching data:', error);
             return {
                 props: {
-                    news: { data: [], total_pages: 1 },
-                    translations: { Xəbərlər: 'Xəbərlər' },
-                    currentPage,
+                    notFound: true,
                 },
             };
         }
@@ -299,9 +315,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             console.error('Error fetching data:', error);
             return {
                 props: {
-                    contactsData: null,
-                    translationsData: null,
-                    meta: [],
+                    notFound: true,
                 },
             };
         }

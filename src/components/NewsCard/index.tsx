@@ -22,9 +22,9 @@ export default function NewsCard({ data, i }: { data: NewsData; i: number }) {
             onClick={() => {
                 localStorage.setItem('slug', JSON.stringify(data.slug));
             }}
-            href={`/${language}/${ROUTES.news[language]}/${
+            href={`/${language}/${ROUTES.news[language]}/detail/${
                 data.slug[language as 'az' | 'en' | 'ru']
-            }/?id=${data.id}`}
+            }`}
         >
             {' '}
             <div

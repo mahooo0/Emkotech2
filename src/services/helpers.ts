@@ -71,3 +71,7 @@ const url = '/az/haqımızda';
 const newLang: 'az' | 'en' | 'ru' = 'ru';
 
 console.log(updateLangAndRoute(url, newLang)); // Output: "/ru/пронас"
+
+export function findRedicert(pathname: string) {
+    return Array(8).find((redirect) => redirect.from === pathname);
+}

@@ -32,7 +32,7 @@ export interface NewsIdProps {
     popularData: NewsItem[];
     translationsData: {
         Xəbərlər: string;
-        Populyar_Məhsullar: string;
+        Populyar_xeberler: string;
         Hamısına_bax: string;
     };
     nodata: boolean;
@@ -130,7 +130,7 @@ export default function NewsId({
                 <section className="mt-[100px]">
                     <div className="w-full flex lg:justify-center justify-start flex-wrap px-[30px]">
                         <h2 className="text-5xl text-black max-md:text-4xl">
-                            {translationsData?.Populyar_Məhsullar}
+                            {translationsData?.Populyar_xeberler}
                         </h2>
                         <div className="lg:absolute md:absolute static lg:right-[100px] md:right-[60px] right-[30px]">
                             <Link

@@ -1,7 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { updateRoutes } from '@/services/CONSTANTS'; // Import the update function
 
 const useRedirect = () => {
+    const [redirects, setRedirects] = useState<
+        { from: string; to: string }[] | null
+    >(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -13,24 +17,37 @@ const useRedirect = () => {
                 const { data } = await res.json();
 
                 if (!data || !Array.isArray(data)) return;
+                setRedirects(data);
 
-                const currentPath = window.location.pathname;
-                console.log('currentPath', currentPath);
-
-                const redirectEntry = data.find(
-                    (entry: { from: string }) => entry.from === currentPath
-                );
-
-                if (redirectEntry) {
-                    router.push(`${redirectEntry.to}`);
-                }
+                // Update `ROUTES` dynamically based on fetched redirects
+                updateRoutes(data);
             } catch (error) {
                 console.error('Redirect Fetch Error:', error);
             }
         };
 
         fetchRedirects();
-    }, [router.pathname]);
+    }, []);
+
+    useEffect(() => {
+        if (!redirects) return;
+
+        const currentPath = window.location.pathname.replace(/^\/|\/$/g, ''); // Normalize path
+        console.log('🔎 Checking Redirect for:', currentPath);
+
+        const redirectEntry = redirects.find(
+            (entry) => entry.from.replace(/^\/|\/$/g, '') === currentPath
+        );
+
+        if (redirectEntry) {
+            console.log(
+                `🔀 Redirecting from ${currentPath} to ${redirectEntry.to}`
+            );
+            router.replace(redirectEntry.to.replace(/^\/|\/$/g, ''));
+        }
+    }, [router.pathname, redirects]);
+
+    return redirects;
 };
 
 export default useRedirect;

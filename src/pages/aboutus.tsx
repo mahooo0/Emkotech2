@@ -70,7 +70,8 @@ export default function AboutUs({
     const baseUrl =
         typeof window !== 'undefined'
             ? window.location.origin
-            : 'https://emkotech.com'; // Fallback for SSR
+            : 'https://emkotech.com';
+
     const fullUrl = `${baseUrl}${router.asPath}`;
     return (
         <>

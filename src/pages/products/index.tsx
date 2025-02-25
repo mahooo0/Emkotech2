@@ -19,6 +19,7 @@ import { ROUTES } from '@/services/CONSTANTS';
 import { MetaItem } from '@/types';
 import Head from 'next/head';
 import CatecoryArticle from '@/components/CategoryArticle';
+import CatecoryArticleBellow from '@/components/CategoryArticle/below';
 
 // interface Product {
 //     id: number;
@@ -78,6 +79,8 @@ export default function Products() {
         id: number;
         title: string;
         description: string;
+        below_description: string;
+        below_title: string;
         image: string; // URL
         subcategories: Subcategory[];
         slug: {
@@ -96,6 +99,8 @@ export default function Products() {
             ru: string;
         };
         description: string;
+        below_description: string;
+        below_title: string;
     }
     type ApiResponse<T> = {
         data: T[];
@@ -670,13 +675,14 @@ export default function Products() {
                             );
                         }}
                     />
-                    <div className="mt-3.5 lg:text-lg   md:text-lg text-[12px] text-black max-md:max-w-full max-sm:text-[16px] lg:px-[100px] md:px-[60px] px-[30px]">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Reprehenderit, totam ipsum. Vero, id velit ipsam
-                        porro explicabo accusamus provident voluptatem aperiam
-                        officia commodi molestias aliquid dignissimos rerum
-                        obcaecati, ex non.
-                    </div>
+                    <CatecoryArticleBellow
+                        productCategoriesData={productCategoriesData?.data}
+                        selectedCategory={selectedCategory}
+                        productSubCategoriesData={
+                            productSubCategoriesData?.data
+                        }
+                        selectedSubCategory={selectedSubCategory}
+                    />
                 </main>
                 {/* <Footer /> */}
             </div>

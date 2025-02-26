@@ -383,6 +383,8 @@ export default function Home({
                                 <img
                                     loading="lazy"
                                     src={item.icon}
+                                    alt={item.name}
+                                    title={item.name}
                                     className="object-contain w-12 aspect-square"
                                 />
                             </div>

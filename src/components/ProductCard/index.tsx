@@ -25,6 +25,8 @@ const ProductCard = ({ data }: { data: Product }) => {
                 <img
                     loading="lazy"
                     src={data.image}
+                    alt={data.alt ? data.alt : data.title}
+                    title={data.image_title ? data.image_title : data.title}
                     className="object-cover cursor-pointer w-full rounded-2xl aspect-[1.05]"
                 />
             </Link>

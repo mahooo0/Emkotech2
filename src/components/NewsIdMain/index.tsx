@@ -17,6 +17,8 @@ function MainID({ data }: { data: NewsData }) {
                     <img
                         loading="lazy"
                         src="/images/faceboock.png"
+                        alt="icon"
+                        title="icon"
                         className="object-contain shrink-0 self-start w-[34px] cursor-pointer"
                         onClick={() => {
                             const url = window.location.href;

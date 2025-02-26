@@ -17,6 +17,8 @@ export interface Project {
     title: string;
     description: string;
     image: string;
+    image_title: string | null;
+    alt: string | null;
 }
 type TranslationData = Record<string, string>;
 
@@ -69,6 +71,16 @@ export default function ProjectsId({
                                             loading="lazy"
                                             className="object-cover w-full rounded-2xl aspect-square max-md:mt-6 max-md:max-w-full"
                                             src={project.image}
+                                            alt={
+                                                project?.alt
+                                                    ? project.alt
+                                                    : project?.title
+                                            }
+                                            title={
+                                                project?.image_title
+                                                    ? project.image_title
+                                                    : project?.title
+                                            }
                                         />
                                     </div>
                                     <div className="flex flex-col ml-5 w-[59%] max-md:ml-0 max-md:w-full">

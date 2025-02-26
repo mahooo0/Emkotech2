@@ -38,6 +38,8 @@ export type Product = {
     slide_images: SlideImage[];
     category_slug: { az: string; en: string; ru: string };
     subcategory_slug: { az: string; en: string; ru: string };
+    image_title: string | null;
+    alt: string | null;
 };
 
 type SimilarProduct = Product;

@@ -47,6 +47,7 @@ export function Footer() {
                     <img
                         loading="lazy"
                         src={Logo?.footer_logo}
+                        alt="Footer logo"
                         className="object-contain max-w-full aspect-[2.52] w-[141px]"
                     />
                     <div className="flex lg:flex-row md:flex-row flex-col gap-10 justify-between self-stretch mt-9 leading-none max-md:max-w-full w-full lg:pr-[25%] pr-0">
@@ -115,6 +116,8 @@ export function Footer() {
                                 <img
                                     loading="lazy"
                                     src={item.icon}
+                                    alt="icon"
+                                    title="icon"
                                     className="object-contain mt-6 w-[16px] h-[16px] "
                                 />
                             </Link>

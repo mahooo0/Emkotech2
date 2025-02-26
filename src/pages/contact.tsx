@@ -181,6 +181,8 @@ const Contact = ({ contactsData, translationsData, meta }: ContactProps) => {
                                                                     src={
                                                                         contact.icon
                                                                     }
+                                                                    alt="icon"
+                                                                    title="icon"
                                                                     className="object-contain shrink-0 self-stretch my-auto w-12 aspect-square rounded-[100px]"
                                                                 />
                                                                 <div className="self-stretch my-auto">

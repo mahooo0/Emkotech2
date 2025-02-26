@@ -37,6 +37,8 @@ const PartnersSlider = ({ data }: { data: Partner[] }) => {
                                     loading="lazy"
                                     className="object-contain aspect-[1.86] w-[102px]"
                                     src={item.icon}
+                                    alt={item.name}
+                                    title={item.name}
                                 />
                             </div>
                             <p className="self-center mt-2.5 text-sm text-center text-black text-opacity-80">

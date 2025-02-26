@@ -55,7 +55,12 @@ const EssentialCamera: React.FC<{
                     >
                         <img
                             src={data?.slide_images[selectedImage]?.image}
-                            alt=""
+                            alt={data?.alt ? data.alt : data?.title}
+                            title={
+                                data?.image_title
+                                    ? data.image_title
+                                    : data?.title
+                            }
                             onClick={() => setisopen(true)}
                             className="w-full  md:h-full lg:h-[700px] h-[300px] object-cover rounded-[18px]  top-0 right-0  "
                         />
@@ -72,7 +77,12 @@ const EssentialCamera: React.FC<{
                                     <img
                                         key={index}
                                         src={item.image}
-                                        alt={`${item.id}`}
+                                        alt={data?.alt ? data.alt : data?.title}
+                                        title={
+                                            data?.image_title
+                                                ? data.image_title
+                                                : data?.title
+                                        }
                                         className={`object-cover rounded-2xl aspect-square w-[84px] cursor-pointer ${
                                             index > 0 ? '' : ''
                                         } ${

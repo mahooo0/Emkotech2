@@ -23,6 +23,8 @@ export default function ProjectCard({ data }: { data: Project | undefined }) {
                     loading="lazy"
                     className="object-cover w-full rounded-2xl aspect-[1.52] hover:scale-110 duration-300"
                     src={data?.image}
+                    alt={data?.alt ? data.alt : data?.title}
+                    title={data?.image_title ? data.image_title : data?.title}
                 />
                 <div className="flex flex-col px-5 mt-5 w-full">
                     <h2 className="self-start font-medium text-black">

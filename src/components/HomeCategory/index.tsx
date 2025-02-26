@@ -13,6 +13,8 @@ type Subcategory = {
     image: string;
     category_id: number;
     slug: { az: string; en: string; ru: string };
+    image_title: string | null;
+    alt: string | null;
 };
 
 export type Category = {
@@ -189,7 +191,12 @@ export default function HomeCategory({ data }: { data: Category[] }) {
                                 <img
                                     className="w-[75px] aspect-square"
                                     src={item.image}
-                                    alt=""
+                                    alt={item.alt ? item.alt : item.name}
+                                    title={
+                                        item.image_title
+                                            ? item.image_title
+                                            : item.name
+                                    }
                                 />
                                 <p>{item.name}</p>
                             </div>

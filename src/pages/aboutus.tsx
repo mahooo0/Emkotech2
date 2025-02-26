@@ -147,7 +147,8 @@ export default function AboutUs({
                                     <Image
                                         loading="lazy"
                                         src={aboutData?.data[0].image}
-                                        alt="About Image 1"
+                                        alt={aboutData?.data[0].title}
+                                        title={aboutData?.data[0].title}
                                         width={800}
                                         height={600}
                                         className="object-cover object-center w-full rounded-none aspect-square max-md:mt-6 max-md:max-w-full max-h-[480px]"
@@ -178,6 +179,7 @@ export default function AboutUs({
                                                     loading="lazy"
                                                     src={item.image}
                                                     alt={item.title}
+                                                    title={item.title}
                                                     width={54}
                                                     height={54}
                                                     className="object-contain aspect-square w-[54px]"

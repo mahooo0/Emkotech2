@@ -15,6 +15,8 @@ export interface Project {
     description: string;
     image: string;
     slug: { az: string; en: string; ru: string };
+    image_title: string | null;
+    alt: string | null;
 }
 type TranslationData = Record<string, string>;
 
@@ -36,7 +38,7 @@ export default function Projects({
     const router = useRouter();
     console.log('meta:', meta);
     const pagemetas = meta?.find((item) => item.type === 'Projects');
-    console.log('pagemetas', pagemetas);
+    console.log('projects', projects);
     const baseUrl =
         typeof window !== 'undefined'
             ? window.location.origin

@@ -47,7 +47,8 @@ export interface Project {
     image: string;
     meta_title: string;
     meta_keys: string;
-
+    image_title: string | null;
+    alt: string | null;
     meta_image: string;
     meta_description: string;
 }

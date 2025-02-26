@@ -13,6 +13,8 @@ interface subcategories {
         en: string;
         ru: string;
     };
+    image_title: string | null;
+    alt: string | null;
 }
 interface Category {
     id: string;
@@ -284,7 +286,14 @@ const CategoryBAr = ({ categories, isopen, isLoading }: CategoryBarProps) => {
                                                                         product.image
                                                                     }
                                                                     alt={
-                                                                        product.name
+                                                                        product.alt
+                                                                            ? product.alt
+                                                                            : product.name
+                                                                    }
+                                                                    title={
+                                                                        product.image_title
+                                                                            ? product.image_title
+                                                                            : product.name
                                                                     }
                                                                     className="object-contain shrink-0 self-stretch my-auto rounded-xl aspect-square w-[60px] max-w-[60px] max-h-[60px]"
                                                                 />

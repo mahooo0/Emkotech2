@@ -11,6 +11,8 @@ export interface NewsItem {
     title: string;
     image: string;
     short_description: string;
+    image_title: string | null;
+    alt: string | null;
 }
 
 export function Aside({ data }: { data: NewsItem[] }) {
@@ -81,6 +83,12 @@ export function Aside({ data }: { data: NewsItem[] }) {
                             <img
                                 loading="lazy"
                                 src={item.image}
+                                alt={item.alt ? item.alt : item.title}
+                                title={
+                                    item.image_title
+                                        ? item.image_title
+                                        : item.title
+                                }
                                 className="object-cover shrink-0 rounded-none aspect-[1.04] w-[83px] max-h-[80px]"
                             />
                             <div className="flex flex-col my-auto">

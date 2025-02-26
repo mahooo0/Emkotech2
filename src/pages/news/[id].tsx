@@ -27,6 +27,8 @@ export interface NewsIdProps {
         meta_image: string;
         meta_description: string;
         short_description: string;
+        image_title: string | null;
+        alt: string | null;
     };
     newsList: NewsData[];
     popularData: NewsItem[];
@@ -49,6 +51,7 @@ export default function NewsId({
     error,
 }: NewsIdProps) {
     const router = useRouter();
+    console.log('newsData', newsData);
 
     // Handle no data scenario
     if (nodata) {

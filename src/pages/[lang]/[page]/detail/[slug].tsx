@@ -392,7 +392,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 getPopularNews(lang),
             ]);
             if (!newsDataBySlug?.data) {
-                console.log('cindir', newsDataBySlug.data);
+                console.log('', newsDataBySlug.data);
                 return { notFound: true };
             }
 

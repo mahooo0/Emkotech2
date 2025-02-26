@@ -3,6 +3,9 @@ import React from 'react';
 interface NewsData {
     image: string;
     description: string;
+    image_title: string | null;
+    alt: string | null;
+    title: string;
 }
 
 function MainID({ data }: { data: NewsData }) {
@@ -72,6 +75,8 @@ function MainID({ data }: { data: NewsData }) {
                 <img
                     loading="lazy"
                     src={data.image}
+                    alt={data.alt ? data.alt : data.title}
+                    title={data.image_title ? data.image_title : data.title}
                     className="object-cover rounded-lg grow shrink-0  aspect-[1.22] basis-0 lg:w-[80%] w-full max-md:max-w-full"
                 />
             </div>

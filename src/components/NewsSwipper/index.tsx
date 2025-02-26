@@ -61,6 +61,12 @@ export const NewsSwiper = ({ data }: { data: NewsData[] }) => {
                                         loading="lazy"
                                         className="object-cover w-full aspect-[1.38]"
                                         src={item.image}
+                                        alt={item.alt ? item.alt : item.title}
+                                        title={
+                                            item.image_title
+                                                ? item.image_title
+                                                : item.title
+                                        }
                                     />
                                 </div>
                                 <div className="flex flex-col justify-center p-6 w-full bg-white text-zinc-800">

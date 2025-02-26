@@ -11,6 +11,8 @@ export interface NewsData {
     date: string;
     views: number;
     slug: { az: string; en: string; ru: string };
+    image_title: string | null;
+    alt: string | null;
 }
 
 export default function NewsCard({ data, i }: { data: NewsData; i: number }) {
@@ -35,6 +37,8 @@ export default function NewsCard({ data, i }: { data: NewsData; i: number }) {
                     <img
                         loading="lazy"
                         className="object-cover w-full aspect-[1.38]"
+                        alt={data.alt ? data.alt : data.title}
+                        title={data.image_title ? data.image_title : data.title}
                         src={data.image}
                     />
                 </div>

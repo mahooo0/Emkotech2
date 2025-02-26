@@ -21,6 +21,8 @@ interface NewsItem {
     short_description: string;
     date: string;
     views: number;
+    image_title: string | null;
+    alt: string | null;
 }
 
 interface NevsProps {
@@ -45,7 +47,7 @@ export default function Nevs({
     const handlePageChange = (page: number) => {
         router.push(`/${lang}/${ROUTES.news[language]}?pagination=${page}`);
     };
-    console.log('meta:', meta);
+    console.log('news:', news);
     const pagemetas = meta?.find((item) => item.type === 'News');
     console.log('pagemetas', pagemetas);
     const baseUrl =
@@ -139,6 +141,16 @@ export default function Nevs({
                                                 loading="lazy"
                                                 className="object-cover w-full aspect-[1.38]"
                                                 src={item.image}
+                                                alt={
+                                                    item.alt
+                                                        ? item.alt
+                                                        : item.title
+                                                }
+                                                title={
+                                                    item.image_title
+                                                        ? item.image_title
+                                                        : item.title
+                                                }
                                             />
                                         </div>
                                         <div className="flex flex-col justify-center p-6 w-full bg-white text-zinc-800">

@@ -63,6 +63,8 @@ interface NewsItem {
     short_description: string;
     date: string;
     views: number;
+    image_title: string | null;
+    alt: string | null;
 }
 export interface news {
     data: NewsItem[];
